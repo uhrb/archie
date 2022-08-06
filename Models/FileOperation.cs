@@ -14,6 +14,7 @@ public class FileOperation
 
 public enum OperationType
 {
+    Unknown,
     CopySourceToTarget,
     CopyTargetToSource,
     Conflict

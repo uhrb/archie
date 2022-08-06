@@ -26,7 +26,7 @@ public class FsBackend : IBackend
             {
                 var bytes = await md.ComputeHashAsync(reader);
                 var hash = Convert.ToHexString(bytes);
-                _logger.LogTrace($"{hash} - {entry}");
+                _logger.LogTrace($"{hash} - {entry.BasePath}:{entry.RelativeName}");
                 return hash;
             }
         }

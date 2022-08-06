@@ -48,7 +48,7 @@ public class ComputeCommand : ICommand
             var targetBackend = _backends.GetBySchema(target);
             var sourceList = await sourceBackend.List(source);
             var targetList = await targetBackend.List(target);
-            _logger.LogDebug($"SourceCount={source.Length}; TargetCount={target.Length}");
+            _logger.LogDebug($"SourceCount={sourceList.Count()}; TargetCount={targetList.Count()}");
             var onlyOnTarget = targetList.Where(_ => !sourceList.Any(__ => __.RelativeName == _.RelativeName));
             var onlyOnSource = sourceList.Where(_ => !targetList.Any(__ => __.RelativeName == _.RelativeName));
             var same = sourceList
@@ -80,6 +80,7 @@ public class ComputeCommand : ICommand
                     SourceHash = await sourceBackend.GetHash(sourceFile)
                 });
             }
+
             foreach (var intersected in same)
             {
                 using (_logger.BeginScope($"{Guid.NewGuid()} Intersected"))
@@ -95,7 +96,8 @@ public class ComputeCommand : ICommand
                             Source = intersected.Source,
                             Target = intersected.Target,
                             SourceHash = hashSource,
-                            TargetHash = hashTarget
+                            TargetHash = hashTarget,
+                            Operation = OperationType.Conflict
                         });
                     }
                 }

@@ -12,13 +12,19 @@ public static class Program
 {
     public static async Task<int> Main(string[] args)
     {
-        var runlog = $"/home/uh/github/archie/logs/log-{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.log";
+        var runlog = $"/home/uh/github/archie/logs/log.log";
+        if (File.Exists(runlog))
+        {
+            File.Delete(runlog);
+        }
         var services = new ServiceCollection()
             .AddLogging(_ =>
             {
                 var serilog = new LoggerConfiguration()
                     .MinimumLevel.Verbose()
-                    .WriteTo.File(runlog)
+                    .WriteTo
+                    .File(runlog,
+                          outputTemplate: "{Timestamp:yyyy-MM-ddTHH:mm:ss.fffzzz} [{Level}] {Scope} {Message} {NewLine}")
                     .CreateLogger();
                 _.SetMinimumLevel(LogLevel.Trace)
                 .AddSerilog(logger: serilog);
