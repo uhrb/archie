@@ -12,15 +12,16 @@ public class FsBackend : IBackend
     {
         _logger = logger;
     }
-    public async Task<string> GetHash(string entry)
+    public async Task<string> GetHash(FileEntry entry)
     {
+        var path = Path.Combine(entry.BasePath, entry.RelativeName);
         using (_logger.BeginScope($"{Guid.NewGuid()} GetHash"))
         {
-            if (false == File.Exists(entry))
+            if (false == File.Exists(path))
             {
                 throw new FileNotFoundException();
             }
-            using (var reader = File.OpenRead(entry))
+            using (var reader = File.OpenRead(path))
             using (var md = MD5.Create())
             {
                 var bytes = await md.ComputeHashAsync(reader);
@@ -31,9 +32,13 @@ public class FsBackend : IBackend
         }
     }
 
-    public Task<string[]> List(string path)
+    public Task<IEnumerable<FileEntry>> List(string path)
     {
         var files = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
-        return Task.FromResult(files);
+        return Task.FromResult(files.Select(_ => new FileEntry
+        {
+            RelativeName = Path.GetRelativePath(path, _),
+            BasePath = path
+        }));
     }
 }

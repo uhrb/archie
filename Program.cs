@@ -4,6 +4,7 @@ using archie.Commands;
 using archie.io;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace archie;
 
@@ -11,17 +12,20 @@ public static class Program
 {
     public static async Task<int> Main(string[] args)
     {
-
+        var runlog = $"/home/uh/github/archie/logs/log-{DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")}.log";
         var services = new ServiceCollection()
             .AddLogging(_ =>
             {
-                _.AddConsole(__ =>
-                {
-                    __.IncludeScopes = true;
-                });
-                _.SetMinimumLevel(LogLevel.Debug);
+                var serilog = new LoggerConfiguration()
+                    .MinimumLevel.Verbose()
+                    .WriteTo.File(runlog)
+                    .CreateLogger();
+                _.SetMinimumLevel(LogLevel.Trace)
+                .AddSerilog(logger: serilog);
+
             })
             .AddSingleton<IBackendFactory, BackendFactory>()
+            .AddSingleton<IOutputFormatter, JsonObjectFormatter>()
             .AddSingleton<ICommandIO, ConsoleCommandIO>()
             .BuildServiceProvider();
 

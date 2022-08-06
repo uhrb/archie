@@ -1,6 +1,7 @@
 using System.CommandLine;
 using archie.Backends;
 using archie.io;
+using archie.Models;
 using Microsoft.Extensions.Logging;
 
 namespace archie.Commands;
@@ -48,20 +49,55 @@ public class ComputeCommand : ICommand
             var sourceList = await sourceBackend.List(source);
             var targetList = await targetBackend.List(target);
             _logger.LogDebug($"SourceCount={source.Length}; TargetCount={target.Length}");
-            var onlyOnTarget = targetList.Except(sourceList);
-            var onlyOnSource = sourceList.Except(targetList);
-            var same = targetList.Intersect(sourceList);
-            foreach(var targetFile in onlyOnTarget) {
-                await _io.WriteLineAsync($"copy source << target {targetFile}");
+            var onlyOnTarget = targetList.Where(_ => !sourceList.Any(__ => __.RelativeName == _.RelativeName));
+            var onlyOnSource = sourceList.Where(_ => !targetList.Any(__ => __.RelativeName == _.RelativeName));
+            var same = sourceList
+                .Where(_ => targetList.Any(__ => __.RelativeName == _.RelativeName))
+                .Select(_ => new
+                {
+                    Source = _,
+                    Target = targetList.First(__ => __.RelativeName == _.RelativeName)
+                });
+
+            _logger.LogDebug($"OnlyOnTarget={onlyOnTarget.Count()}; OnlyOnSource={onlyOnSource.Count()}; Intersect={same.Count()}");
+            foreach (var targetFile in onlyOnTarget)
+            {
+                _logger.LogTrace($"OnlyOnTarget={targetFile.BasePath}:{targetFile.RelativeName}");
+                await _io.WriteLineAsync(new FileOperation
+                {
+                    Operation = OperationType.CopyTargetToSource,
+                    Target = targetFile,
+                    TargetHash = await targetBackend.GetHash(targetFile)
+                });
             }
-            foreach(var sourceFile in onlyOnSource) {
-                await _io.WriteLineAsync($"copy source >> target {sourceFile}");
+            foreach (var sourceFile in onlyOnSource)
+            {
+                _logger.LogTrace($"OnlyOnSource={sourceFile.BasePath}:{sourceFile.RelativeName}");
+                await _io.WriteLineAsync(new FileOperation
+                {
+                    Operation = OperationType.CopySourceToTarget,
+                    Source = sourceFile,
+                    SourceHash = await sourceBackend.GetHash(sourceFile)
+                });
             }
-            foreach(var intersected in same) {
-                var hashSource = sourceBackend.GetHash(intersected);
-                var hashTarget = targetBackend.GetHash(intersected);
-                if(hashSource != hashTarget) {
-                    await _io.WriteLineAsync($"conflict {intersected} shash={hashSource}/thash={hashTarget}");
+            foreach (var intersected in same)
+            {
+                using (_logger.BeginScope($"{Guid.NewGuid()} Intersected"))
+                {
+                    var hashSource = await sourceBackend.GetHash(intersected.Source);
+                    var hashTarget = await targetBackend.GetHash(intersected.Target);
+                    _logger.LogTrace($"Both Source={hashSource}-{intersected.Source.BasePath}:{intersected.Source.RelativeName}; Target={hashTarget}-{intersected.Target.BasePath}:{intersected.Target.RelativeName}");
+                    if (hashSource != hashTarget)
+                    {
+                        _logger.LogDebug($"Conflict detected");
+                        await _io.WriteLineAsync(new FileOperation
+                        {
+                            Source = intersected.Source,
+                            Target = intersected.Target,
+                            SourceHash = hashSource,
+                            TargetHash = hashTarget
+                        });
+                    }
                 }
             }
         }
