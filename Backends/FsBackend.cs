@@ -1,21 +1,33 @@
 using System.Security.Cryptography;
 using archie.Models;
+using Microsoft.Extensions.Logging;
 
 namespace archie.Backends;
 
 public class FsBackend : IBackend
 {
-    public async Task<string> GetHash(FileEntry entry)
+    private ILogger<FsBackend> _logger;
+
+    public FsBackend(ILogger<FsBackend> logger)
     {
-        if (false == File.Exists(entry.Name))
+        _logger = logger;
+    }
+    public async Task<string> GetHash(string entry)
+    {
+        using (_logger.BeginScope($"{Guid.NewGuid()} GetHash"))
         {
-            throw new FileNotFoundException();
-        }
-        using (var reader = File.OpenRead(entry.Name))
-        using (var md = MD5.Create())
-        {
-            var bytes = await md.ComputeHashAsync(reader);
-            return Convert.ToHexString(bytes);
+            if (false == File.Exists(entry))
+            {
+                throw new FileNotFoundException();
+            }
+            using (var reader = File.OpenRead(entry))
+            using (var md = MD5.Create())
+            {
+                var bytes = await md.ComputeHashAsync(reader);
+                var hash = Convert.ToHexString(bytes);
+                _logger.LogTrace($"{hash} - {entry}");
+                return hash;
+            }
         }
     }
 

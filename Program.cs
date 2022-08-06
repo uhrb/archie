@@ -1,6 +1,7 @@
 ﻿using System.CommandLine;
 using archie.Backends;
 using archie.Commands;
+using archie.io;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -14,9 +15,14 @@ public static class Program
         var services = new ServiceCollection()
             .AddLogging(_ =>
             {
-                _.AddConsole();
+                _.AddConsole(__ =>
+                {
+                    __.IncludeScopes = true;
+                });
+                _.SetMinimumLevel(LogLevel.Debug);
             })
             .AddSingleton<IBackendFactory, BackendFactory>()
+            .AddSingleton<ICommandIO, ConsoleCommandIO>()
             .BuildServiceProvider();
 
         var rootCommand = new RootCommand();
