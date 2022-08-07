@@ -1,0 +1,2 @@
+{"Operation":"CopyTargetToSource","Source":null,"Target":{"RelativeName":"3.txt","BasePath":"/home/uh/Data/archie/target"},"SourceHash":null,"TargetHash":"D41D8CD98F00B204E9800998ECF8427E"}
+{"Operation":"Conflict","Source":{"RelativeName":"1.txt","BasePath":"/home/uh/Data/archie/source"},"Target":{"RelativeName":"1.txt","BasePath":"/home/uh/Data/archie/target"},"SourceHash":"D41D8CD98F00B204E9800998ECF8427E","TargetHash":"A2E5E988620BBE17EF14DFD37E4D86CA"}

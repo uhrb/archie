@@ -12,6 +12,24 @@ public class FsBackend : IBackend
     {
         _logger = logger;
     }
+
+    public FileEntryInfo GetEntryInfo(FileEntry target)
+    {
+        var fullName = Path.Combine(target.BasePath, target.RelativeName);
+        var fi = new FileInfo(fullName);
+        if(!fi.Exists) {
+            throw new FileNotFoundException();
+        }
+        return new FileEntryInfo {
+            RelativeName = target.RelativeName,
+            BasePath = target.BasePath,
+            CreatedAt = fi.CreationTimeUtc,
+            ModifiedAt = fi.LastWriteTimeUtc,
+            Tier = FileEntryTiers.NotSupported,
+            Size = fi.Length
+        };
+    }
+
     public async Task<string> GetHash(FileEntry entry)
     {
         var path = Path.Combine(entry.BasePath, entry.RelativeName);

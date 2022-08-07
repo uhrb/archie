@@ -31,11 +31,13 @@ public static class Program
 
             })
             .AddSingleton<IBackendFactory, BackendFactory>()
-            .AddSingleton<IOutputFormatter, JsonObjectFormatter>()
-            .AddSingleton<ICommandIO, ConsoleCommandIO>()
+            .AddSingleton<IObjectFormatter, JsonObjectFormatter>()
+            .AddSingleton<TextWriter>(_ => Console.Out)
+            .AddSingleton<TextReader>(_ => Console.In)
             .BuildServiceProvider();
 
         var rootCommand = new RootCommand();
+
         RegisterCommands(services, rootCommand);
         return await rootCommand.InvokeAsync(args);
     }

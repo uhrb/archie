@@ -1,15 +1,4 @@
-2022-08-06T21:56:10.533+04:00 [Debug]  Command Registered 
-2022-08-06T21:56:10.589+04:00 [Debug] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute"] Source=/home/uh/Data/archie/source; Target=/home/uh/Data/archie/target 
-2022-08-06T21:56:10.591+04:00 [Debug] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute"] GetBySchema /home/uh/Data/archie/source 
-2022-08-06T21:56:10.592+04:00 [Debug] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute"] GetBySchema /home/uh/Data/archie/target 
-2022-08-06T21:56:10.593+04:00 [Debug] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute"] SourceCount=2; TargetCount=3 
-2022-08-06T21:56:10.594+04:00 [Debug] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute"] OnlyOnTarget=1; OnlyOnSource=0; Intersect=2 
-2022-08-06T21:56:10.595+04:00 [Verbose] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute"] OnlyOnTarget=/home/uh/Data/archie/target:3.txt 
-2022-08-06T21:56:10.605+04:00 [Verbose] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute", "86f17755-7032-4e91-bfad-aa6de11366fb GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target:3.txt 
-2022-08-06T21:56:10.705+04:00 [Verbose] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute", "7194fe89-11f9-41ec-b1c3-d89439c6ef84 Intersected", "c388d378-b3d8-4e37-ad76-429ff6c853eb GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source:1.txt 
-2022-08-06T21:56:10.705+04:00 [Verbose] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute", "7194fe89-11f9-41ec-b1c3-d89439c6ef84 Intersected", "c324573f-c26b-40d5-abde-04a1e0ceb23c GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target:1.txt 
-2022-08-06T21:56:10.705+04:00 [Verbose] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute", "7194fe89-11f9-41ec-b1c3-d89439c6ef84 Intersected"] Both Source=D41D8CD98F00B204E9800998ECF8427E-/home/uh/Data/archie/source:1.txt; Target=A2E5E988620BBE17EF14DFD37E4D86CA-/home/uh/Data/archie/target:1.txt 
-2022-08-06T21:56:10.705+04:00 [Debug] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute", "7194fe89-11f9-41ec-b1c3-d89439c6ef84 Intersected"] Conflict detected 
-2022-08-06T21:56:10.706+04:00 [Verbose] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute", "13d3f850-1c85-4777-ada5-3fe6a932c986 Intersected", "30333aae-4734-49ec-b4c0-779f9eb820db GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source:2.txt 
-2022-08-06T21:56:10.706+04:00 [Verbose] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute", "13d3f850-1c85-4777-ada5-3fe6a932c986 Intersected", "67469fea-8e8d-468a-b80a-c651b704579d GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target:2.txt 
-2022-08-06T21:56:10.706+04:00 [Verbose] ["b7506e22-d428-4420-a6ec-ab4b549f67ca HandleCompute", "13d3f850-1c85-4777-ada5-3fe6a932c986 Intersected"] Both Source=D41D8CD98F00B204E9800998ECF8427E-/home/uh/Data/archie/source:2.txt; Target=D41D8CD98F00B204E9800998ECF8427E-/home/uh/Data/archie/target:2.txt 
+2022-08-07T15:09:42.810+04:00 [Debug]  Command Registered 
+2022-08-07T15:09:43.112+04:00 [Debug] ["3eaa5da7-3b67-4fbe-8607-be2464e04f65 HandleResolve"] Operations=2; NonConflict=1; Conflict=1 
+2022-08-07T15:09:43.116+04:00 [Debug] ["3eaa5da7-3b67-4fbe-8607-be2464e04f65 HandleResolve"] GetBySchema /home/uh/Data/archie/source 
+2022-08-07T15:09:43.116+04:00 [Debug] ["3eaa5da7-3b67-4fbe-8607-be2464e04f65 HandleResolve"] GetBySchema /home/uh/Data/archie/target 

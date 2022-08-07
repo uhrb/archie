@@ -10,13 +10,16 @@ public class ComputeCommand : ICommand
 {
     private readonly ILogger<ComputeCommand> _logger;
     private readonly IBackendFactory _backends;
-    private readonly ICommandIO _io;
+    private readonly IObjectFormatter _fmt;
 
-    public ComputeCommand(ILogger<ComputeCommand> logger, IBackendFactory backends, ICommandIO io)
+    private readonly TextWriter _wr;
+
+    public ComputeCommand(ILogger<ComputeCommand> logger, IBackendFactory backends, IObjectFormatter fmt, TextWriter stream)
     {
         _logger = logger;
         _backends = backends;
-        _io = io;
+        _fmt = fmt;
+        _wr = stream;
     }
 
     public void Register(RootCommand rootCommand)
@@ -39,69 +42,80 @@ public class ComputeCommand : ICommand
         _logger.LogDebug("Command Registered");
     }
 
-    private async Task HandleCompute(string source, string target)
+    private async Task<int> HandleCompute(string source, string target)
     {
         using (var scope = _logger.BeginScope($"{Guid.NewGuid()} HandleCompute"))
         {
-            _logger.LogDebug($"Source={source}; Target={target}");
-            var sourceBackend = _backends.GetBySchema(source);
-            var targetBackend = _backends.GetBySchema(target);
-            var sourceList = await sourceBackend.List(source);
-            var targetList = await targetBackend.List(target);
-            _logger.LogDebug($"SourceCount={sourceList.Count()}; TargetCount={targetList.Count()}");
-            var onlyOnTarget = targetList.Where(_ => !sourceList.Any(__ => __.RelativeName == _.RelativeName));
-            var onlyOnSource = sourceList.Where(_ => !targetList.Any(__ => __.RelativeName == _.RelativeName));
-            var same = sourceList
-                .Where(_ => targetList.Any(__ => __.RelativeName == _.RelativeName))
-                .Select(_ => new
-                {
-                    Source = _,
-                    Target = targetList.First(__ => __.RelativeName == _.RelativeName)
-                });
+            try
+            {
 
-            _logger.LogDebug($"OnlyOnTarget={onlyOnTarget.Count()}; OnlyOnSource={onlyOnSource.Count()}; Intersect={same.Count()}");
-            foreach (var targetFile in onlyOnTarget)
-            {
-                _logger.LogTrace($"OnlyOnTarget={targetFile.BasePath}:{targetFile.RelativeName}");
-                await _io.WriteLineAsync(new FileOperation
-                {
-                    Operation = OperationType.CopyTargetToSource,
-                    Target = targetFile,
-                    TargetHash = await targetBackend.GetHash(targetFile)
-                });
-            }
-            foreach (var sourceFile in onlyOnSource)
-            {
-                _logger.LogTrace($"OnlyOnSource={sourceFile.BasePath}:{sourceFile.RelativeName}");
-                await _io.WriteLineAsync(new FileOperation
-                {
-                    Operation = OperationType.CopySourceToTarget,
-                    Source = sourceFile,
-                    SourceHash = await sourceBackend.GetHash(sourceFile)
-                });
-            }
-
-            foreach (var intersected in same)
-            {
-                using (_logger.BeginScope($"{Guid.NewGuid()} Intersected"))
-                {
-                    var hashSource = await sourceBackend.GetHash(intersected.Source);
-                    var hashTarget = await targetBackend.GetHash(intersected.Target);
-                    _logger.LogTrace($"Both Source={hashSource}-{intersected.Source.BasePath}:{intersected.Source.RelativeName}; Target={hashTarget}-{intersected.Target.BasePath}:{intersected.Target.RelativeName}");
-                    if (hashSource != hashTarget)
+                _logger.LogDebug($"Source={source}; Target={target}");
+                var sourceBackend = _backends.GetBySchema(source);
+                var targetBackend = _backends.GetBySchema(target);
+                var sourceList = await sourceBackend.List(source);
+                var targetList = await targetBackend.List(target);
+                _logger.LogDebug($"SourceCount={sourceList.Count()}; TargetCount={targetList.Count()}");
+                var onlyOnTarget = targetList.Where(_ => !sourceList.Any(__ => __.RelativeName == _.RelativeName));
+                var onlyOnSource = sourceList.Where(_ => !targetList.Any(__ => __.RelativeName == _.RelativeName));
+                var same = sourceList
+                    .Where(_ => targetList.Any(__ => __.RelativeName == _.RelativeName))
+                    .Select(_ => new
                     {
-                        _logger.LogDebug($"Conflict detected");
-                        await _io.WriteLineAsync(new FileOperation
+                        Source = _,
+                        Target = targetList.First(__ => __.RelativeName == _.RelativeName)
+                    });
+
+                _logger.LogDebug($"OnlyOnTarget={onlyOnTarget.Count()}; OnlyOnSource={onlyOnSource.Count()}; Intersect={same.Count()}");
+                foreach (var targetFile in onlyOnTarget)
+                {
+                    _logger.LogTrace($"OnlyOnTarget={targetFile.BasePath}:{targetFile.RelativeName}");
+                    await _wr.WriteLineAsync(_fmt.FormatObject(new FileOperation
+                    {
+                        Operation = OperationType.CopyTargetToSource,
+                        Target = targetFile,
+                        TargetHash = await targetBackend.GetHash(targetFile)
+                    }));
+                }
+                foreach (var sourceFile in onlyOnSource)
+                {
+                    _logger.LogTrace($"OnlyOnSource={sourceFile.BasePath}:{sourceFile.RelativeName}");
+                    await _wr.WriteLineAsync(_fmt.FormatObject(new FileOperation
+                    {
+                        Operation = OperationType.CopySourceToTarget,
+                        Source = sourceFile,
+                        SourceHash = await sourceBackend.GetHash(sourceFile)
+                    }));
+                }
+
+                foreach (var intersected in same)
+                {
+                    using (_logger.BeginScope($"{Guid.NewGuid()} Intersected"))
+                    {
+                        var hashSource = await sourceBackend.GetHash(intersected.Source);
+                        var hashTarget = await targetBackend.GetHash(intersected.Target);
+                        _logger.LogTrace($"Both Source={hashSource}-{intersected.Source.BasePath}:{intersected.Source.RelativeName}; Target={hashTarget}-{intersected.Target.BasePath}:{intersected.Target.RelativeName}");
+                        if (hashSource != hashTarget)
                         {
-                            Source = intersected.Source,
-                            Target = intersected.Target,
-                            SourceHash = hashSource,
-                            TargetHash = hashTarget,
-                            Operation = OperationType.Conflict
-                        });
+                            _logger.LogDebug($"Conflict detected");
+                            await _wr.WriteLineAsync(_fmt.FormatObject(new FileOperation
+                            {
+                                Source = intersected.Source,
+                                Target = intersected.Target,
+                                SourceHash = hashSource,
+                                TargetHash = hashTarget,
+                                Operation = OperationType.Conflict
+                            }));
+                        }
                     }
                 }
+
             }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return 100;
+            }
+            return 0;
         }
     }
 }
