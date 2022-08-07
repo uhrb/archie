@@ -12,9 +12,9 @@ public class ComputeCommand : ICommand
     private readonly IBackendFactory _backends;
     private readonly IObjectFormatter _fmt;
 
-    private readonly TextWriter _wr;
+    private readonly IStreams _wr;
 
-    public ComputeCommand(ILogger<ComputeCommand> logger, IBackendFactory backends, IObjectFormatter fmt, TextWriter stream)
+    public ComputeCommand(ILogger<ComputeCommand> logger, IBackendFactory backends, IObjectFormatter fmt, IStreams stream)
     {
         _logger = logger;
         _backends = backends;
@@ -25,33 +25,32 @@ public class ComputeCommand : ICommand
     public void Register(RootCommand rootCommand)
     {
         var computeCommand = new Command("compute", "Compute difference between fs points");
-        var optionSource = new Option<string>("--source", "Source directory")
+        var optionSource = new Option<Uri>("--source", "Source directory")
         {
             IsRequired = true
         };
-        var optionTarget = new Option<string>("--target", "Target directory")
+        var optionTarget = new Option<Uri>("--target", "Target directory")
         {
             IsRequired = true
         };
         computeCommand.AddOption(optionSource);
         computeCommand.AddOption(optionTarget);
         computeCommand.SetHandler(
-            (string source, string target) => HandleCompute(source, target),
+            (Uri source, Uri target) => HandleCompute(source, target),
             optionSource, optionTarget);
         rootCommand.AddCommand(computeCommand);
         _logger.LogDebug("Command Registered");
     }
 
-    private async Task<int> HandleCompute(string source, string target)
+    private async Task<int> HandleCompute(Uri source, Uri target)
     {
         using (var scope = _logger.BeginScope($"{Guid.NewGuid()} HandleCompute"))
         {
+            _logger.LogDebug($"Source={source}, Target={target}");
             try
             {
-
-                _logger.LogDebug($"Source={source}; Target={target}");
-                var sourceBackend = _backends.GetBySchema(source);
-                var targetBackend = _backends.GetBySchema(target);
+                var sourceBackend = _backends.GetBySchema(source.Scheme);
+                var targetBackend = _backends.GetBySchema(target.Scheme);
                 var sourceList = await sourceBackend.List(source);
                 var targetList = await targetBackend.List(target);
                 _logger.LogDebug($"SourceCount={sourceList.Count()}; TargetCount={targetList.Count()}");
@@ -69,7 +68,7 @@ public class ComputeCommand : ICommand
                 foreach (var targetFile in onlyOnTarget)
                 {
                     _logger.LogTrace($"OnlyOnTarget={targetFile.BasePath}:{targetFile.RelativeName}");
-                    await _wr.WriteLineAsync(_fmt.FormatObject(new FileOperation
+                    await _wr.Stdout.WriteLineAsync(_fmt.FormatObject(new FileOperation
                     {
                         Operation = OperationType.CopyTargetToSource,
                         Target = targetFile,
@@ -79,7 +78,7 @@ public class ComputeCommand : ICommand
                 foreach (var sourceFile in onlyOnSource)
                 {
                     _logger.LogTrace($"OnlyOnSource={sourceFile.BasePath}:{sourceFile.RelativeName}");
-                    await _wr.WriteLineAsync(_fmt.FormatObject(new FileOperation
+                    await _wr.Stdout.WriteLineAsync(_fmt.FormatObject(new FileOperation
                     {
                         Operation = OperationType.CopySourceToTarget,
                         Source = sourceFile,
@@ -97,7 +96,7 @@ public class ComputeCommand : ICommand
                         if (hashSource != hashTarget)
                         {
                             _logger.LogDebug($"Conflict detected");
-                            await _wr.WriteLineAsync(_fmt.FormatObject(new FileOperation
+                            await _wr.Stdout.WriteLineAsync(_fmt.FormatObject(new FileOperation
                             {
                                 Source = intersected.Source,
                                 Target = intersected.Target,
@@ -113,6 +112,7 @@ public class ComputeCommand : ICommand
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
+                await _wr.Stderror.WriteLineAsync($"{e.Message} - {e.StackTrace}");
                 return 100;
             }
             return 0;

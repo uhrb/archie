@@ -32,8 +32,7 @@ public static class Program
             })
             .AddSingleton<IBackendFactory, BackendFactory>()
             .AddSingleton<IObjectFormatter, JsonObjectFormatter>()
-            .AddSingleton<TextWriter>(_ => Console.Out)
-            .AddSingleton<TextReader>(_ => Console.In)
+            .AddSingleton<IStreams>(_ => new Streams(Console.In, Console.Out, Console.Error))
             .BuildServiceProvider();
 
         var rootCommand = new RootCommand();

@@ -16,10 +16,13 @@ public class BackendFactory : IBackendFactory
     public IBackend GetBySchema(string schema)
     {
         _logger.LogDebug($"GetBySchema {schema}");
+
         switch (schema)
         {
-            default:
+            case "fs":
                 return (IBackend)ActivatorUtilities.CreateInstance(_provider, typeof(FsBackend));
+            default:
+                throw new NotSupportedException();
         }
     }
 }

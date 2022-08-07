@@ -6,6 +6,8 @@ namespace archie.Backends;
 
 public class FsBackend : IBackend
 {
+    const string _scheme = "fs";
+
     private ILogger<FsBackend> _logger;
 
     public FsBackend(ILogger<FsBackend> logger)
@@ -17,10 +19,12 @@ public class FsBackend : IBackend
     {
         var fullName = Path.Combine(target.BasePath, target.RelativeName);
         var fi = new FileInfo(fullName);
-        if(!fi.Exists) {
+        if (!fi.Exists)
+        {
             throw new FileNotFoundException();
         }
-        return new FileEntryInfo {
+        return new FileEntryInfo
+        {
             RelativeName = target.RelativeName,
             BasePath = target.BasePath,
             CreatedAt = fi.CreationTimeUtc,
@@ -32,7 +36,7 @@ public class FsBackend : IBackend
 
     public async Task<string> GetHash(FileEntry entry)
     {
-        var path = Path.Combine(entry.BasePath, entry.RelativeName);
+        var path = entry.FullName.AbsolutePath;
         using (_logger.BeginScope($"{Guid.NewGuid()} GetHash"))
         {
             if (false == File.Exists(path))
@@ -44,19 +48,45 @@ public class FsBackend : IBackend
             {
                 var bytes = await md.ComputeHashAsync(reader);
                 var hash = Convert.ToHexString(bytes);
-                _logger.LogTrace($"{hash} - {entry.BasePath}:{entry.RelativeName}");
+                _logger.LogTrace($"{hash} - {entry.BasePath}:{entry.RelativeName} - {entry.FullName}");
                 return hash;
             }
         }
     }
 
-    public Task<IEnumerable<FileEntry>> List(string path)
+    public Task<IEnumerable<FileEntry>> List(Uri path)
     {
-        var files = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
+        if (path.Scheme != _scheme)
+        {
+            throw new NotSupportedException();
+        }
+
+        _logger.LogDebug($"List {path} {path.AbsolutePath}");
+
+        var files = Directory.GetFiles(path.AbsolutePath, "*", SearchOption.AllDirectories);
         return Task.FromResult(files.Select(_ => new FileEntry
         {
-            RelativeName = Path.GetRelativePath(path, _),
-            BasePath = path
+            RelativeName = Path.GetRelativePath(path.AbsolutePath, _),
+            BasePath = path.AbsolutePath,
+            FullName = new Uri($"fs://{_}")
         }));
+    }
+
+    public Stream OpenRead(FileEntry entry)
+    {
+        if (entry.FullName.Scheme != _scheme)
+        {
+            throw new NotSupportedException();
+        }
+        return File.OpenRead(entry.FullName.AbsolutePath);
+    }
+
+    public Stream OpenRead(Uri uri)
+    {
+        if (uri.Scheme != _scheme)
+        {
+            throw new NotSupportedException();
+        }
+        return File.OpenRead(uri.AbsolutePath);
     }
 }
