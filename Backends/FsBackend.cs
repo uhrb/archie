@@ -74,11 +74,7 @@ public class FsBackend : IBackend
 
     public Stream OpenRead(FileEntry entry)
     {
-        if (entry.FullName.Scheme != _scheme)
-        {
-            throw new NotSupportedException();
-        }
-        return File.OpenRead(entry.FullName.AbsolutePath);
+        return OpenRead(entry.FullName);
     }
 
     public Stream OpenRead(Uri uri)
@@ -88,5 +84,19 @@ public class FsBackend : IBackend
             throw new NotSupportedException();
         }
         return File.OpenRead(uri.AbsolutePath);
+    }
+
+    public Stream OpenWrite(FileEntry entry)
+    {
+        return OpenWrite(entry.FullName);
+    }
+
+    public Stream OpenWrite(Uri uri)
+    {
+        if(uri.Scheme != _scheme) {
+            throw new NotSupportedException();
+        }
+
+        return File.OpenWrite(uri.AbsolutePath);
     }
 }

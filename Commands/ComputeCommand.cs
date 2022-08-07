@@ -33,22 +33,37 @@ public class ComputeCommand : ICommand
         {
             IsRequired = true
         };
+
+        var optionOutput = new Option<Uri>("--output", "Output file");
+        computeCommand.AddOption(optionOutput);
         computeCommand.AddOption(optionSource);
         computeCommand.AddOption(optionTarget);
         computeCommand.SetHandler(
-            (Uri source, Uri target) => HandleCompute(source, target),
-            optionSource, optionTarget);
+            (Uri source, Uri target, Uri? output) => HandleCompute(source, target, output),
+            optionSource, optionTarget, optionOutput);
         rootCommand.AddCommand(computeCommand);
         _logger.LogDebug("Command Registered");
     }
 
-    private async Task<int> HandleCompute(Uri source, Uri target)
+    private async Task<int> HandleCompute(Uri source, Uri target, Uri? output)
     {
         using (var scope = _logger.BeginScope($"{Guid.NewGuid()} HandleCompute"))
         {
             _logger.LogDebug($"Source={source}, Target={target}");
+            TextWriter? wr = null;
+            Stream? sr = null;
             try
             {
+                if (output == default(Uri?))
+                {
+                    wr = _wr.Stdout;
+                }
+                else
+                {
+                    var outputBackend = _backends.GetBySchema(output!.Scheme);
+                    sr = outputBackend.OpenWrite(output!);
+                    wr = (TextWriter)new StreamWriter(sr);
+                }
                 var sourceBackend = _backends.GetBySchema(source.Scheme);
                 var targetBackend = _backends.GetBySchema(target.Scheme);
                 var sourceList = await sourceBackend.List(source);
@@ -68,7 +83,7 @@ public class ComputeCommand : ICommand
                 foreach (var targetFile in onlyOnTarget)
                 {
                     _logger.LogTrace($"OnlyOnTarget={targetFile.BasePath}:{targetFile.RelativeName}");
-                    await _wr.Stdout.WriteLineAsync(_fmt.FormatObject(new FileOperation
+                    await wr.WriteLineAsync(_fmt.FormatObject(new FileOperation
                     {
                         Operation = OperationType.CopyTargetToSource,
                         Target = targetFile,
@@ -78,7 +93,7 @@ public class ComputeCommand : ICommand
                 foreach (var sourceFile in onlyOnSource)
                 {
                     _logger.LogTrace($"OnlyOnSource={sourceFile.BasePath}:{sourceFile.RelativeName}");
-                    await _wr.Stdout.WriteLineAsync(_fmt.FormatObject(new FileOperation
+                    await wr.WriteLineAsync(_fmt.FormatObject(new FileOperation
                     {
                         Operation = OperationType.CopySourceToTarget,
                         Source = sourceFile,
@@ -96,7 +111,7 @@ public class ComputeCommand : ICommand
                         if (hashSource != hashTarget)
                         {
                             _logger.LogDebug($"Conflict detected");
-                            await _wr.Stdout.WriteLineAsync(_fmt.FormatObject(new FileOperation
+                            await wr.WriteLineAsync(_fmt.FormatObject(new FileOperation
                             {
                                 Source = intersected.Source,
                                 Target = intersected.Target,
@@ -114,6 +129,14 @@ public class ComputeCommand : ICommand
                 _logger.LogError(e, e.Message);
                 await _wr.Stderror.WriteLineAsync($"{e.Message} - {e.StackTrace}");
                 return 100;
+            }
+            finally
+            {
+                if (sr != default(Stream))
+                {
+                    wr?.Dispose();
+                    sr?.Dispose();
+                }
             }
             return 0;
         }

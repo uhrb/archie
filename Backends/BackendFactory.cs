@@ -15,7 +15,7 @@ public class BackendFactory : IBackendFactory
     }
     public IBackend GetBySchema(string schema)
     {
-        _logger.LogDebug($"GetBySchema {schema}");
+        _logger.LogTrace($"GetBySchema {schema}");
 
         switch (schema)
         {

@@ -9,4 +9,8 @@ public interface IBackend {
 
     Stream OpenRead(FileEntry entry);
     Stream OpenRead(Uri uri);
+
+    Stream OpenWrite(FileEntry entry);
+
+    Stream OpenWrite(Uri uri);
 }

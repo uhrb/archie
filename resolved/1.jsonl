@@ -1,0 +1,2 @@
+{"Operation":"CopySourceToTarget","Source":{"RelativeName":"1.txt","BasePath":"/home/uh/Data/archie/source","FullName":"fs:///home/uh/Data/archie/source/1.txt"},"Target":{"RelativeName":"1.txt","BasePath":"/home/uh/Data/archie/target","FullName":"fs:///home/uh/Data/archie/target/1.txt"},"SourceHash":null,"TargetHash":null}
+{"Operation":"CopyTargetToSource","Source":null,"Target":{"RelativeName":"3.txt","BasePath":"/home/uh/Data/archie/target","FullName":"fs:///home/uh/Data/archie/target/3.txt"},"SourceHash":null,"TargetHash":"D41D8CD98F00B204E9800998ECF8427E"}
