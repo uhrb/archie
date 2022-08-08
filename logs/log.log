@@ -1,11 +1,4 @@
-2022-08-07T17:28:04.230+04:00 [Debug]  Command Registered 
-2022-08-07T17:28:04.331+04:00 [Verbose] ["652bf913-a84e-479a-b38b-9f0ad1074621 HandleResolve"] GetBySchema fs 
-2022-08-07T17:28:04.523+04:00 [Debug] ["652bf913-a84e-479a-b38b-9f0ad1074621 HandleResolve"] Operations=2; NonConflict=1; Conflict=1 
-2022-08-07T17:28:04.549+04:00 [Debug] ["652bf913-a84e-479a-b38b-9f0ad1074621 HandleResolve", "9c423829-6d5f-44f0-9b64-f3a6992ddf91 Conflict Resolution"] Conflict {"Operation":"Conflict","Source":{"RelativeName":"1.txt","BasePath":"/home/uh/Data/archie/source","FullName":"fs:///home/uh/Data/archie/source/1.txt"},"Target":{"RelativeName":"1.txt","BasePath":"/home/uh/Data/archie/target","FullName":"fs:///home/uh/Data/archie/target/1.txt"},"SourceHash":"D41D8CD98F00B204E9800998ECF8427E","TargetHash":"A2E5E988620BBE17EF14DFD37E4D86CA"} 
-2022-08-07T17:28:04.550+04:00 [Verbose] ["652bf913-a84e-479a-b38b-9f0ad1074621 HandleResolve", "9c423829-6d5f-44f0-9b64-f3a6992ddf91 Conflict Resolution"] GetBySchema fs 
-2022-08-07T17:28:04.550+04:00 [Verbose] ["652bf913-a84e-479a-b38b-9f0ad1074621 HandleResolve", "9c423829-6d5f-44f0-9b64-f3a6992ddf91 Conflict Resolution"] GetBySchema fs 
-2022-08-07T17:28:05.583+04:00 [Information] ["652bf913-a84e-479a-b38b-9f0ad1074621 HandleResolve", "9c423829-6d5f-44f0-9b64-f3a6992ddf91 Conflict Resolution"] Resolved Source->Target {"Operation":"CopySourceToTarget","Source":{"RelativeName":"1.txt","BasePath":"/home/uh/Data/archie/source","FullName":"fs:///home/uh/Data/archie/source/1.txt"},"Target":{"RelativeName":"1.txt","BasePath":"/home/uh/Data/archie/target","FullName":"fs:///home/uh/Data/archie/target/1.txt"},"SourceHash":null,"TargetHash":null} 
-2022-08-07T17:28:05.584+04:00 [Debug] ["652bf913-a84e-479a-b38b-9f0ad1074621 HandleResolve"] All resolved - 2 
-2022-08-07T17:28:05.584+04:00 [Verbose] ["652bf913-a84e-479a-b38b-9f0ad1074621 HandleResolve"] GetBySchema fs 
-2022-08-07T17:28:05.585+04:00 [Debug] ["652bf913-a84e-479a-b38b-9f0ad1074621 HandleResolve"] Resolutions saved to fs:///home/uh/github/archie/resolved/1.jsonl 
-2022-08-07T17:28:05.585+04:00 [Debug] ["652bf913-a84e-479a-b38b-9f0ad1074621 HandleResolve"] Done 
+2022-08-08T16:35:21.584+04:00 [Debug]  Command Registered 
+2022-08-08T16:35:26.245+04:00 [Debug] ["c15b10c9-e6ac-49a6-8e0e-591325de9d4c HandleCompute"] Source=fs:///home/uh/Data/archie/source, Target=fs:///home/uh/Data/archie/target 
+2022-08-08T16:35:28.149+04:00 [Verbose] ["c15b10c9-e6ac-49a6-8e0e-591325de9d4c HandleCompute"] GetBySchema fs 
+2022-08-08T16:35:28.893+04:00 [Verbose] ["c15b10c9-e6ac-49a6-8e0e-591325de9d4c HandleCompute"] GetBySchema fs 

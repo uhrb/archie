@@ -89,9 +89,9 @@ public class FsBackend : IBackend
 
     private void CheckScheme(Uri uri)
     {
-        if (uri.Scheme == _scheme)
+        if (uri.Scheme != _scheme)
         {
-            throw new NotSupportedException($"Scheme {uri.Scheme} not supported by FsBackend");
+            throw new NotSupportedException($"Scheme {uri.Scheme} not supported by FsBackend Param={uri}");
         }
     }
 
