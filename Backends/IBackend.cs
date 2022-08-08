@@ -8,4 +8,6 @@ public interface IBackend {
 
     Stream OpenRead(Uri entry);
     Stream OpenWrite(Uri uri);
+    Uri ComputePath(Uri basePath, string[] fragments);
+    string[] GetRelativeFragments(Uri basePath, Uri fullName);
 }

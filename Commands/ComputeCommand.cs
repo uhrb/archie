@@ -58,30 +58,24 @@ public class ComputeCommand : ICommand
                 var targetList = await targetBackend.List(target);
                 _logger.LogDebug($"SourceCount={sourceList.Count()}; TargetCount={targetList.Count()}");
 
-                var onlyOnTarget = targetList.Where(_ =>
-                    !sourceList.Any(__ => _.GetRelativeName(target) == __.GetRelativeName(source)));
-
-                var onlyOnSource = sourceList.Where(_ =>
-                    !targetList.Any(__ => _.GetRelativeName(source) == __.GetRelativeName(target)));
-
-                var both = sourceList
-                    .Where(_ => targetList.Any(__ => __.GetRelativeName(target) == _.GetRelativeName(source)))
-                    .Select(_ => new
-                    {
-                        Source = _,
-                        Target = targetList.First(__ => __.GetRelativeName(target) == _.GetRelativeName(source))
-                    });
+                var onlyOnTarget = GetOnlyInFirstList(targetList, sourceList, targetBackend, target, sourceBackend, source);
+                var onlyOnSource = GetOnlyInFirstList(sourceList, targetList, sourceBackend, source, targetBackend, target);
+                var both = GetOnBothLists(sourceList, targetList, sourceBackend, source, targetBackend, target);
 
                 _logger.LogDebug($"OnlyOnTarget={onlyOnTarget.Count()}; OnlyOnSource={onlyOnSource.Count()}; Intersect={both.Count()}");
 
                 var diffDescription = new DiffDescription
                 {
-                    Created = DateTime.UtcNow.ToString("yyyy-mm-ddTHH:MM:ss.sssZ"),
+                    Created = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.sssZ"),
                     Source = source,
                     Target = target,
                     OnlyOnSource = onlyOnSource.ToList(),
                     OnlyOnTarget = onlyOnTarget.ToList(),
-                    Both = both.Select(_ => new[] { _.Source, _.Target }).ToList()
+                    Both = both.Select(_ => new BothPoco
+                    {
+                        Source = _.First,
+                        Target = _.Second
+                    }).ToList()
                 };
 
                 var outputString = _fmt.FormatObject(diffDescription);
@@ -107,6 +101,56 @@ public class ComputeCommand : ICommand
                 return 100;
             }
             return 0;
+        }
+    }
+
+    private class TupleOps
+    {
+        public FileDescription First { get; set; }
+        public FileDescription Second { get; set; }
+    }
+
+    private IEnumerable<TupleOps> GetOnBothLists(
+        IEnumerable<FileDescription> first,
+        IEnumerable<FileDescription> second,
+        IBackend firstB,
+        Uri firstBase,
+        IBackend secondB,
+        Uri secondBase)
+    {
+
+        var firstDict = first.ToDictionary(_ => string.Join("/", firstB.GetRelativeFragments(firstBase, _.FullName)));
+        var secondDict = second.ToDictionary(_ => string.Join("/", secondB.GetRelativeFragments(secondBase, _.FullName)));
+        var both = firstDict.Keys.Intersect(secondDict.Keys);
+        foreach (var key in both)
+        {
+            var f = firstDict[key];
+            var s = secondDict[key];
+            if (f.MD5 != s.MD5)
+            {
+                yield return new TupleOps
+                {
+                    First = f,
+                    Second = s
+                };
+            }
+        }
+    }
+
+    private IEnumerable<FileDescription> GetOnlyInFirstList(
+        IEnumerable<FileDescription> first,
+        IEnumerable<FileDescription> second,
+        IBackend firstB,
+        Uri firstBase,
+        IBackend secondB,
+        Uri secondBase)
+    {
+        var firstDict = first.ToDictionary(_ => string.Join("/", firstB.GetRelativeFragments(firstBase, _.FullName)), _ => _);
+        var secondDict = second.ToDictionary(_ => string.Join("/", secondB.GetRelativeFragments(secondBase, _.FullName)), _ => _);
+        var except = firstDict.Keys.Except(secondDict.Keys);
+        foreach (var key in except)
+        {
+            yield return firstDict[key];
         }
     }
 }

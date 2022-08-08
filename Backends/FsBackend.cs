@@ -30,13 +30,9 @@ public class FsBackend : IBackend
         {
             throw new FileNotFoundException($"File {path} not found");
         }
-        return new FsFileDescription
+        return new FileDescription
         {
             MD5 = await GetHash(path),
-            CreatedAt = fi.CreationTimeUtc,
-            ModifiedAt = fi.LastWriteTimeUtc,
-            Tier = FileEntryTiers.NotSupported,
-            Size = fi.Length
         };
     }
     public async Task<string> GetHash(string path)
@@ -95,11 +91,20 @@ public class FsBackend : IBackend
         }
     }
 
-    class FsFileDescription : FileDescription
+    public Uri ComputePath(Uri basePath, string[] fragments)
     {
-        public override string GetRelativeName(Uri basePath)
-        {
-            return Path.GetRelativePath(basePath.AbsolutePath, FullName.AbsolutePath);
-        }
+        _logger.LogTrace($"ComputePath {basePath} {string.Join(",", fragments)}");
+        var path = Path.Combine(basePath.AbsolutePath, string.Join(Path.DirectorySeparatorChar, fragments));
+        return new Uri($"{_scheme}://{path}");
+    }
+
+    public string[] GetRelativeFragments(Uri basePath, Uri fullName)
+    {
+        CheckScheme(basePath);
+        CheckScheme(fullName);
+        var result = Path.GetRelativePath(basePath.AbsolutePath, fullName.AbsolutePath).Split(Path.DirectorySeparatorChar);
+        _logger.LogTrace($"GetRelativeFragments {basePath} {fullName} {string.Join(",", result)}");
+        return result;
+
     }
 }

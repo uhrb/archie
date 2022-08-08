@@ -1,0 +1,24 @@
+{
+  "Source": "fs:///home/uh/Data/archie/source",
+  "Target": "fs:///home/uh/Data/archie/target",
+  "Created": "2022-08-08T17:29:21.21Z",
+  "OnlyOnTarget": [
+    {
+      "FullName": "fs:///home/uh/Data/archie/target/3.txt",
+      "MD5": "D41D8CD98F00B204E9800998ECF8427E"
+    }
+  ],
+  "OnlyOnSource": [],
+  "Both": [
+    {
+      "Source": {
+        "FullName": "fs:///home/uh/Data/archie/source/1.txt",
+        "MD5": "D41D8CD98F00B204E9800998ECF8427E"
+      },
+      "Target": {
+        "FullName": "fs:///home/uh/Data/archie/target/1.txt",
+        "MD5": "A2E5E988620BBE17EF14DFD37E4D86CA"
+      }
+    }
+  ]
+}
