@@ -15,28 +15,32 @@ public class FsBackend : IBackend
         _logger = logger;
     }
 
-    public FileEntryInfo GetEntryInfo(FileEntry target)
+    public async Task<FileDescription> GetFileDescription(Uri path)
     {
-        var fullName = Path.Combine(target.BasePath, target.RelativeName);
-        var fi = new FileInfo(fullName);
+        CheckScheme(path);
+        var entry = await ComputeEntry(path.AbsolutePath);
+        entry.FullName = path;
+        return entry;
+    }
+
+    private async Task<FileDescription> ComputeEntry(string path)
+    {
+        var fi = new FileInfo(path);
         if (!fi.Exists)
         {
-            throw new FileNotFoundException();
+            throw new FileNotFoundException($"File {path} not found");
         }
-        return new FileEntryInfo
+        return new FsFileDescription
         {
-            RelativeName = target.RelativeName,
-            BasePath = target.BasePath,
+            MD5 = await GetHash(path),
             CreatedAt = fi.CreationTimeUtc,
             ModifiedAt = fi.LastWriteTimeUtc,
             Tier = FileEntryTiers.NotSupported,
             Size = fi.Length
         };
     }
-
-    public async Task<string> GetHash(FileEntry entry)
+    public async Task<string> GetHash(string path)
     {
-        var path = entry.FullName.AbsolutePath;
         using (_logger.BeginScope($"{Guid.NewGuid()} GetHash"))
         {
             if (false == File.Exists(path))
@@ -48,55 +52,54 @@ public class FsBackend : IBackend
             {
                 var bytes = await md.ComputeHashAsync(reader);
                 var hash = Convert.ToHexString(bytes);
-                _logger.LogTrace($"{hash} - {entry.BasePath}:{entry.RelativeName} - {entry.FullName}");
+                _logger.LogTrace($"{hash} - {path}");
                 return hash;
             }
         }
     }
-
-    public Task<IEnumerable<FileEntry>> List(Uri path)
-    {
-        if (path.Scheme != _scheme)
-        {
-            throw new NotSupportedException();
-        }
-
-        _logger.LogDebug($"List {path} {path.AbsolutePath}");
-
-        var files = Directory.GetFiles(path.AbsolutePath, "*", SearchOption.AllDirectories);
-        return Task.FromResult(files.Select(_ => new FileEntry
-        {
-            RelativeName = Path.GetRelativePath(path.AbsolutePath, _),
-            BasePath = path.AbsolutePath,
-            FullName = new Uri($"fs://{_}")
-        }));
-    }
-
-    public Stream OpenRead(FileEntry entry)
-    {
-        return OpenRead(entry.FullName);
-    }
-
     public Stream OpenRead(Uri uri)
     {
-        if (uri.Scheme != _scheme)
-        {
-            throw new NotSupportedException();
-        }
+        CheckScheme(uri);
         return File.OpenRead(uri.AbsolutePath);
-    }
-
-    public Stream OpenWrite(FileEntry entry)
-    {
-        return OpenWrite(entry.FullName);
     }
 
     public Stream OpenWrite(Uri uri)
     {
-        if(uri.Scheme != _scheme) {
-            throw new NotSupportedException();
-        }
-
+        CheckScheme(uri);
         return File.OpenWrite(uri.AbsolutePath);
+    }
+
+    public async Task<IEnumerable<FileDescription>> List(Uri path)
+    {
+        CheckScheme(path);
+
+        _logger.LogDebug($"List {path} {path.AbsolutePath}");
+
+        var files = Directory.GetFiles(path.AbsolutePath, "*", SearchOption.AllDirectories);
+        var tasks = files.Select(async _ =>
+        {
+            var entry = await ComputeEntry(_);
+            entry.FullName = new Uri(path, _);
+            return entry;
+        });
+        await Task.WhenAll(tasks);
+
+        return tasks.Select(_ => _.Result);
+    }
+
+    private void CheckScheme(Uri uri)
+    {
+        if (uri.Scheme == _scheme)
+        {
+            throw new NotSupportedException($"Scheme {uri.Scheme} not supported by FsBackend");
+        }
+    }
+
+    class FsFileDescription : FileDescription
+    {
+        public override string GetRelativeName(Uri basePath)
+        {
+            return Path.GetRelativePath(basePath.AbsolutePath, FullName.AbsolutePath);
+        }
     }
 }

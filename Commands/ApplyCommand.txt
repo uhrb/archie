@@ -1,0 +1,96 @@
+using System.CommandLine;
+using archie.Backends;
+using archie.io;
+using archie.Models;
+using Microsoft.Extensions.Logging;
+
+namespace archie.Commands;
+
+public class ApplyCommand : ICommand
+{
+    private readonly IStreams _s;
+    private readonly ILogger<ApplyCommand> _logger;
+    private readonly IBackendFactory _bf;
+    private readonly IObjectFormatter _fmt;
+
+    public ApplyCommand(ILogger<ApplyCommand> logger, IStreams streams, IBackendFactory bf, IObjectFormatter fmt)
+    {
+        _s = streams;
+        _logger = logger;
+        _bf = bf;
+        _fmt = fmt;
+    }
+
+    public void Register(RootCommand command)
+    {
+        var computeCommand = new Command("apply", "Apply patch file");
+        var optionPatch = new Option<Uri>("--patch", "Patch file")
+        {
+            IsRequired = true
+        };
+        var optionOutput = new Option<Uri>("--output", "Output for unresolved");
+        computeCommand.AddOption(optionOutput);
+        computeCommand.AddOption(optionPatch);
+        computeCommand.SetHandler(
+            (Uri patch, Uri? output) => HandleApply(patch, output),
+            optionPatch, optionOutput);
+        command.AddCommand(computeCommand);
+        _logger.LogDebug("Command Registered");
+    }
+
+    private async Task<int> HandleApply(Uri patch, Uri? output)
+    {
+        using (_logger.BeginScope($"{Guid.NewGuid()} HandleApply"))
+        {
+            try
+            {
+                _logger.LogDebug($"Apply patch={patch}, output={output}");
+                var ops = new List<FileOperation>();
+                var patchBackend = _bf.GetByScheme(patch.Scheme);
+                string? line;
+                using (var file = patchBackend.OpenRead(patch))
+                using (TextReader reader = new StreamReader(file))
+                {
+                    while (null != (line = await reader.ReadLineAsync()))
+                    {
+                        var item = _fmt.UnformatObject<FileOperation>(line);
+                        ops.Add(item);
+                    }
+                }
+                if (ops.Any(_ => _.Operation == OperationType.Conflict))
+                {
+                    throw new DataMisalignedException("Patch data contains unresolved conflicts. Resolve conflicts and try again");
+                }
+                var notApplied = new List<FileOperation>();
+                //await ApplyOperations(ops, notApplied);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                await _s.Stderror.WriteLineAsync($"{e.Message} - {e.StackTrace}");
+                return 300;
+            }
+        }
+        return 0;
+    }
+
+    private class FileOperationResult {
+        public FileOperation Operation {get;set;}
+        public bool IsSuccess {get;set;}
+
+        public string Error {get;set;}
+    } 
+
+    private async Task<IEnumerable<FileOperationResult>> ApplyOperations(List<FileOperation> ops)
+    {
+        var tasks = ops.Select(_ => PerformOperation(_));
+        await Task.WhenAll(tasks);
+        return tasks.Select(_ => _.Result);
+    }
+
+    private async Task<FileOperationResult> PerformOperation(FileOperation op) {
+        var sourceBackend = _bf.GetByScheme(op.Source.FullName.Scheme);
+        var targetBackend = _bf.GetByScheme(op.Target.FullName.Scheme);
+        throw new NotImplementedException();
+    }
+}

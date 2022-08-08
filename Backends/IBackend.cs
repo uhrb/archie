@@ -3,14 +3,9 @@ using archie.Models;
 namespace archie.Backends;
 
 public interface IBackend {
-    public Task<string> GetHash(FileEntry entry);
-    public Task<IEnumerable<FileEntry>> List(Uri path);
-    FileEntryInfo GetEntryInfo(FileEntry target);
+    public Task<IEnumerable<FileDescription>> List(Uri path);
+    public Task<FileDescription> GetFileDescription(Uri path);
 
-    Stream OpenRead(FileEntry entry);
-    Stream OpenRead(Uri uri);
-
-    Stream OpenWrite(FileEntry entry);
-
+    Stream OpenRead(Uri entry);
     Stream OpenWrite(Uri uri);
 }

@@ -32,6 +32,7 @@ public class ResolveCommand : ICommand
         cmd.AddOption(outOption);
         cmd.SetHandler((Uri patch, Uri? output) => HandleResolve(patch, output), option, outOption);
         command.AddCommand(cmd);
+        _logger.LogDebug("Command registered");
     }
 
     private async Task<int> HandleResolve(Uri patch, Uri? output)
@@ -41,7 +42,7 @@ public class ResolveCommand : ICommand
             try
             {
                 var ops = new List<FileOperation>();
-                var patchBackend = _bf.GetBySchema(patch.Scheme);
+                var patchBackend = _bf.GetByScheme(patch.Scheme);
                 string? line;
                 using (var file = patchBackend.OpenRead(patch))
                 using (TextReader reader = new StreamReader(file))
@@ -63,12 +64,12 @@ public class ResolveCommand : ICommand
                         _logger.LogDebug($"Conflict {_fmt.FormatObject(conflict)}");
                         await _s.Stdout.WriteLineAsync("CONFLICT");
                         await _s.Stdout.WriteLineAsync($"Files exists in both target and source. Please see information above and select proper file version");
-                        var sourceBackend = _bf.GetBySchema(conflict.Source.FullName.Scheme);
-                        var targetBackend = _bf.GetBySchema(conflict.Target.FullName.Scheme);
-                        var sourceInfo = sourceBackend.GetEntryInfo(conflict.Source);
-                        var targetInfo = targetBackend.GetEntryInfo(conflict.Target);
-                        await printFileInfo("Source", sourceInfo, conflict.SourceHash);
-                        await printFileInfo("Target", targetInfo, conflict.TargetHash);
+                        var sourceBackend = _bf.GetByScheme(conflict.Source.FullName.Scheme);
+                        var targetBackend = _bf.GetByScheme(conflict.Target.FullName.Scheme);
+                        //var sourceInfo = sourceBackend.GetEntryInfo(conflict.Source);
+                        //var targetInfo = targetBackend.GetEntryInfo(conflict.Target);
+                        //await printFileInfo("Source", sourceInfo, conflict.SourceHash);
+                        //await printFileInfo("Target", targetInfo, conflict.TargetHash);
                         await _s.Stdout.WriteAsync(
                             "Select conflict resolution option(1 - Source->Target, 2 - Target->Source, 3 - Remove, 4 - Exit):");
                         var flag = true;
@@ -116,7 +117,6 @@ public class ResolveCommand : ICommand
                         }
                     }
                 }
-
                 resolutions.AddRange(nonConflicts);
                 _logger.LogDebug($"All resolved - {resolutions.Count}");
                 TextWriter? wr = null;
@@ -130,7 +130,7 @@ public class ResolveCommand : ICommand
                     }
                     else
                     {
-                        var outputBackend = _bf.GetBySchema(output!.Scheme);
+                        var outputBackend = _bf.GetByScheme(output!.Scheme);
                         sr = outputBackend.OpenWrite(output);
                         wr = (TextWriter)new StreamWriter(sr);
                     }
@@ -142,7 +142,8 @@ public class ResolveCommand : ICommand
                 }
                 finally
                 {
-                    if(sr != default(Stream)) {
+                    if (sr != default(Stream))
+                    {
                         wr?.Dispose();
                         sr?.Dispose();
                     }

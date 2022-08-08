@@ -13,7 +13,7 @@ public class BackendFactory : IBackendFactory
         _logger = logger;
         _provider = provider;
     }
-    public IBackend GetBySchema(string schema)
+    public IBackend GetByScheme(string schema)
     {
         _logger.LogTrace($"GetBySchema {schema}");
 
