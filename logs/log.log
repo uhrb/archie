@@ -1,4 +1,73 @@
-2022-08-08T16:35:21.584+04:00 [Debug]  Command Registered 
-2022-08-08T16:35:26.245+04:00 [Debug] ["c15b10c9-e6ac-49a6-8e0e-591325de9d4c HandleCompute"] Source=fs:///home/uh/Data/archie/source, Target=fs:///home/uh/Data/archie/target 
-2022-08-08T16:35:28.149+04:00 [Verbose] ["c15b10c9-e6ac-49a6-8e0e-591325de9d4c HandleCompute"] GetBySchema fs 
-2022-08-08T16:35:28.893+04:00 [Verbose] ["c15b10c9-e6ac-49a6-8e0e-591325de9d4c HandleCompute"] GetBySchema fs 
+2022-08-08T17:22:58.788+04:00 [Debug]  Command Registered 
+2022-08-08T17:22:58.885+04:00 [Debug] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute"] Source=fs:///home/uh/Data/archie/source, Target=fs:///home/uh/Data/archie/target 
+2022-08-08T17:22:58.888+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute"] GetBySchema fs 
+2022-08-08T17:22:58.889+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute"] GetBySchema fs 
+2022-08-08T17:22:58.891+04:00 [Debug] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute"] List fs:///home/uh/Data/archie/source /home/uh/Data/archie/source 
+2022-08-08T17:22:58.911+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "b398d440-aad6-470c-96b2-f72b9f40bfda GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.911+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "48c06315-6d5b-4d9b-8e33-fa087643d31f GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-08T17:22:58.913+04:00 [Debug] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute"] List fs:///home/uh/Data/archie/target /home/uh/Data/archie/target 
+2022-08-08T17:22:58.914+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "486f0666-d629-409e-afab-13986b068bba GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.914+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "04d3b725-c5eb-4af1-96e4-5963489ffd92 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-08T17:22:58.915+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "ed93463c-bfcf-4870-b6d6-55adaeb8cafd GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.915+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "a15758fc-7155-4537-b049-958deaae29e6 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.916+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "40c183ab-606f-4a8c-aee9-38e2ecfc4c38 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-08T17:22:58.916+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "70743858-faf4-4dd4-bfa8-db3cf63a946d GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.916+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "c55d01a7-6b0b-4a59-97ad-9234369f9eea GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.916+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "69ecda7a-295e-4993-8c2c-659de3c533ff GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-08T17:22:58.917+04:00 [Debug] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute"] SourceCount=2; TargetCount=3 
+2022-08-08T17:22:58.917+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "3f53ec36-bd93-463e-b3b8-e1867e070333 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.918+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "f7a578f4-ae58-4b50-8bfc-39355c4ba194 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.919+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "177d5352-2df4-43ca-9414-eb32ca0f6a79 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-08T17:22:58.919+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "e2a4d27c-f536-4114-b436-454e3cb8bce3 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.919+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "56ae4618-be13-4e18-916d-4d06a1b56c63 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.919+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "defff88e-5643-4961-8e32-8e9343a97d76 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-08T17:22:58.919+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "6cc68f71-ccd7-4072-86ab-b9747ba6587c GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.919+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "52093daa-1fb4-403e-88ab-a694b1e37163 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-08T17:22:58.919+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "98b935c1-d2e5-4bcc-8a45-a8ee308e3b4f GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.920+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "55049339-9bbe-45f8-a8ce-a9ad8fc9a686 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.920+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "c11ee40f-a895-4022-8331-68c1c30680be GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.920+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "79363115-90d2-4d6e-8448-939839d546bf GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-08T17:22:58.920+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "6da535a8-a804-4cc8-a7e7-a82632c70133 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.920+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "14e84e2c-1bb8-44cf-9cb2-cce645272d54 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.920+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "3b6102d5-c9c6-41f5-a7cd-70a7fec9ccd5 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-08T17:22:58.921+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "be0f63a4-6741-4083-838d-0707f703a47d GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.921+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "62713993-d58a-4180-a766-50cd3738fa2b GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.921+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "8dd550f5-33d6-4331-81b3-445bff961939 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.922+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "5cb4cb48-328a-4d87-89d3-58efcd06a64f GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.922+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "15c8994c-e121-4460-8c4f-52de048dae4f GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.922+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "3c50053d-9492-43f4-ac64-c7555ec2af3e GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-08T17:22:58.922+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "2d5ebe0e-e644-4d90-8cc7-67db5fd53d26 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.923+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "f0f1122a-c599-426f-b6b2-b2d5c2181470 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.923+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "68d62d08-7db9-4c9e-bed8-8f48f5921e5a GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-08T17:22:58.923+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "cef064ac-4177-41c3-9ffe-129e2916e4f9 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.923+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "c328f629-c890-40db-a317-2eefaca77082 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.923+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "5307c89b-36cf-4e23-8c5f-acb303c1f20f GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-08T17:22:58.923+04:00 [Debug] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute"] OnlyOnTarget=1; OnlyOnSource=0; Intersect=2 
+2022-08-08T17:22:58.924+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "5787cc45-d70a-499f-94f8-9b35fe8ceeb1 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.924+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "30a0c02f-1b55-4aac-a4e6-ca9abb275d7a GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.924+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "3fa6795c-5067-4baf-af9b-86db787554b7 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.924+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "31d0ba40-fa50-4e6c-ab01-640e69e3bdff GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-08T17:22:58.924+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "fcaa87f2-bf44-4b70-ae29-0a309c7a3d2a GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.924+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "f8e8013d-ba86-4d0a-8163-8dafb4c3c93a GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.924+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "38abb4a5-3f86-4321-b31b-621cce6e830c GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-08T17:22:58.925+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "3bfab626-eb10-4967-b577-0c08bcabe8e6 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.925+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "8c826972-eb21-41b8-b6cf-049a655c7d6c GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.925+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "de888633-1818-4051-9493-d397006d924f GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-08T17:22:58.925+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "cc4e02eb-5e81-4c7e-9c71-ebbef7b207e6 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.925+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "8600a87d-823d-4f3a-b979-84e4dceddcef GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.925+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "c30ab093-21f6-4011-90c3-e3cbcab2fefe GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-08T17:22:58.925+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "c547dc90-667b-4f61-929e-5a1cfa7c0b04 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.925+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "bed773ee-b4ba-4205-adaf-ee55bf146b56 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-08T17:22:58.926+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "138c391c-881e-461f-a77c-5fed072b2af0 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-08T17:22:58.926+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "c184c5a7-5440-46eb-baaf-1496de0ea81d GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.926+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "12b7575c-aa33-43e0-9843-df8efade5e86 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.926+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "bb707419-049c-4af9-956c-f223991f1e99 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.926+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "0d72ff83-da2d-42c8-ab34-159203c4e7b3 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.927+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "0d7a7867-e418-41f3-a225-48c2a89f9aef GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-08T17:22:58.927+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "ac3c98bf-8ecd-42a6-9352-a0b4b55ba619 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.927+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "ab7ceaf3-fa5f-4cff-aea0-1576bb371334 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.927+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "0652db67-8831-42bc-9551-ce00ef2734f5 GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-08T17:22:58.927+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "75739ac9-108c-4233-9d8a-cbdc8545ff5e GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-08T17:22:58.927+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "6d18eb7a-e3df-475c-a33a-978609cc3cd8 GetHash"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-08T17:22:58.927+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute", "9921e882-378b-422d-abbe-a168d2df22df GetHash"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-08T17:22:59.099+04:00 [Verbose] ["a6262fed-f4a1-44db-8055-6a364c917d60 HandleCompute"] GetBySchema fs 

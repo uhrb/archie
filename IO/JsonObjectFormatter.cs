@@ -7,7 +7,7 @@ public class JsonObjectFormatter : IObjectFormatter
 {
     public string FormatObject(object w)
     {
-        return JsonConvert.SerializeObject(w, Formatting.None, new [] { new StringEnumConverter() });        
+        return JsonConvert.SerializeObject(w, Formatting.Indented, new [] { new StringEnumConverter() });        
     }
 
     public T UnformatObject<T>(string? s) {
