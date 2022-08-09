@@ -53,7 +53,7 @@ public class ResolveCommand : ICommand
             {
                 var patchBackend = _bf.GetByScheme(patch.Scheme);
                 DiffDescription desc;
-                using (var file = patchBackend.OpenRead(patch))
+                using (var file = await patchBackend.OpenRead(patch))
                 using (TextReader reader = new StreamReader(file))
                 {
                     var jsono = await reader.ReadToEndAsync();
@@ -116,7 +116,7 @@ public class ResolveCommand : ICommand
                 if (output != default(Uri?))
                 {
                     var outputBackend = _bf.GetByScheme(output.Scheme);
-                    using (var f = outputBackend.OpenWrite(output))
+                    using (var f = await outputBackend.OpenWrite(output, FileMode.OpenOrCreate))
                     using (TextWriter wrr = new StreamWriter(f))
                     {
                         await wrr.WriteLineAsync(json);

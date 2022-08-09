@@ -14,15 +14,6 @@ namespace units;
 
 public class FsBackendTests
 {
-    /*
-    public Task<FileDescription> GetFileDescription(Uri path);
-
-    Stream OpenRead(Uri entry);
-    Stream OpenWrite(Uri uri);
-    Uri ComputePath(Uri basePath, string[] fragments);
-    string[] GetRelativeFragments(Uri basePath, Uri fullName);
-    */
-
     readonly string _testDataDirectory;
     readonly string _testWriteDirectory;
 
@@ -33,6 +24,55 @@ public class FsBackendTests
         _testWriteDirectory = Path.Combine(fi!, "test-data");
     }
 
+    [Fact]
+    public async Task OpenWriteFailsIfOpenedNonExistingFile() {
+        var backend = GetBackend();
+        await Assert.ThrowsAnyAsync<DirectoryNotFoundException>(async() => {
+            using(await backend.OpenWrite(new Uri("fs:///some/non/existing/file.txt"), FileMode.Open))
+            {
+            }
+        });
+        
+    }
+
+    [Fact]
+    public async Task GetFileDescriptionThrowsForNonExistingFile()
+    {
+        var backend = GetBackend();
+        await Assert.ThrowsAsync<FileNotFoundException>(async () =>
+        {
+            await backend.GetFileDescription(new Uri("fs:///non/exising/file.txt"));
+        });
+    }
+
+    [Theory]
+    [InlineData("1.txt", "8C7DD922AD47494FC02C388E12C00EAC")]
+    public async Task GetFileDescriptionReturnsCorrectFileDescription(string fileName, string hash) {
+        var backend = GetBackend();
+        var fileUri = new Uri($"fs://{Path.Combine(_testDataDirectory, fileName)}"); 
+        var desc = await backend.GetFileDescription(fileUri);
+        Assert.Equal(fileUri, desc.FullName);
+        Assert.Equal(hash, desc.MD5);
+    }
+
+    [Theory]
+    [InlineData("fs:///home/foo", "fs:///home/foo/bar", new[] { "bar" })]
+    public void GetRelativeFragmentsReturnsCorrectValues(string basePath, string fullPath, string[] fragments)
+    {
+        var backend = GetBackend();
+        var actualFragments = backend.GetRelativeFragments(new Uri(basePath), new Uri(fullPath));
+        Assert.Equal(fragments, actualFragments);
+    }
+
+    [Theory]
+    [InlineData("fs:///home", new[] { "some", "dir" }, "fs:///home/some/dir")]
+    public void ComputePathReturnsCorrectResult(string basePath, string[] fragments, string expected)
+    {
+        var backend = GetBackend();
+        var path = backend.ComputePath(new Uri(basePath), fragments);
+        Assert.Equal(new Uri(expected), path);
+    }
+
 
 
     [Theory]
@@ -40,18 +80,32 @@ public class FsBackendTests
     [InlineData("2.txt", "some")]
     public async Task OpenReadReturnsCorrectStream(string name, string content)
     {
-        var backend = new FsBackend(GetLogger());
-        using(var f = backend.OpenRead(new Uri($"fs://{Path.Combine(_testDataDirectory, name)}")))
-        using(TextReader tr = new StreamReader(f)) {
+        var backend = GetBackend();
+        using (var f = await backend.OpenRead(new Uri($"fs://{Path.Combine(_testDataDirectory, name)}")))
+        using (TextReader tr = new StreamReader(f))
+        {
             var actualContent = await tr.ReadToEndAsync();
             Assert.Equal(content, actualContent);
         }
     }
 
     [Fact]
+    public void OpenReadThrowsIfSchemeIsNotValid()
+    {
+        var backend = GetBackend();
+        Assert.Throws<NotSupportedException>(() =>
+        {
+            using (var f = backend.OpenRead(new Uri("https://example.com")))
+            {
+
+            }
+        });
+    }
+
+    [Fact]
     public void SchemeIsCorrect()
     {
-        var backend = new FsBackend(GetLogger());
+        var backend = GetBackend();
         Assert.Equal("fs", backend.Scheme);
     }
 
@@ -59,7 +113,7 @@ public class FsBackendTests
     [InlineData(new string[] { "1.txt", "2.txt" }, new string[] { "8C7DD922AD47494FC02C388E12C00EAC", "03D59E663C1AF9AC33A9949D1193505A" })]
     public async Task ListReturnsCorrectValues(string[] names, string[] hashes)
     {
-        var backend = new FsBackend(GetLogger());
+        var backend = GetBackend();
         var items = await backend.List(new Uri($"fs://{_testDataDirectory}"));
 
         var combined = new List<FileDescription>();
@@ -87,6 +141,11 @@ public class FsBackendTests
         {
             return obj.GetHashCode();
         }
+    }
+
+    private IBackend GetBackend()
+    {
+        return new FsBackend(GetLogger());
     }
 
     private ILogger<FsBackend> GetLogger()

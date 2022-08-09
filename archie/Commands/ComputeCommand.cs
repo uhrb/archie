@@ -87,7 +87,7 @@ public class ComputeCommand : ICommand
                 else
                 {
                     var outputBackend = _backends.GetByScheme(output!.Scheme);
-                    using (var sr = outputBackend.OpenWrite(output!))
+                    using (var sr = await outputBackend.OpenWrite(output!, FileMode.OpenOrCreate))
                     using (var wr = (TextWriter)new StreamWriter(sr))
                     {
                         await wr.WriteLineAsync(outputString);

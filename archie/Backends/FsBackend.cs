@@ -29,39 +29,30 @@ public class FsBackend : IBackend
         {
             throw new FileNotFoundException($"File {path} not found");
         }
+        string hash;
+        using (var reader = File.OpenRead(path))
+        using (var md = MD5.Create())
+        {
+            var bytes = await md.ComputeHashAsync(reader);
+            hash = Convert.ToHexString(bytes);
+            _logger.LogTrace($"{hash} - {path}");
+        }
         return new FileDescription
         {
-            MD5 = await GetHash(path),
+            MD5 = hash,
         };
     }
-    public async Task<string> GetHash(string path)
-    {
-        using (_logger.BeginScope($"{Guid.NewGuid()} GetHash"))
-        {
-            if (false == File.Exists(path))
-            {
-                throw new FileNotFoundException();
-            }
-            using (var reader = File.OpenRead(path))
-            using (var md = MD5.Create())
-            {
-                var bytes = await md.ComputeHashAsync(reader);
-                var hash = Convert.ToHexString(bytes);
-                _logger.LogTrace($"{hash} - {path}");
-                return hash;
-            }
-        }
-    }
-    public Stream OpenRead(Uri uri)
+
+    public Task<Stream> OpenRead(Uri uri)
     {
         CheckScheme(uri);
-        return File.OpenRead(uri.AbsolutePath);
+        return Task.FromResult<Stream>(File.OpenRead(uri.AbsolutePath));
     }
 
-    public Stream OpenWrite(Uri uri)
+    public Task<Stream> OpenWrite(Uri uri, FileMode mode)
     {
         CheckScheme(uri);
-        return File.OpenWrite(uri.AbsolutePath);
+        return Task.FromResult<Stream>(File.Open(uri.AbsolutePath, mode));
     }
 
     public async Task<IEnumerable<FileDescription>> List(Uri path)
