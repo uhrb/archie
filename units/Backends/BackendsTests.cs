@@ -41,7 +41,6 @@ public class BackendsTests
         });
     }
 
-    // TODO
     [Theory]
     [InlineData("fs", "1.txt", "8C7DD922AD47494FC02C388E12C00EAC")]
     public async Task GetFileDescriptionReturnsCorrectFileDescription(string scheme, string fileName, string hash)
@@ -72,7 +71,6 @@ public class BackendsTests
     }
 
 
-    // TODO with testing data dir
     [Theory]
     [InlineData("fs", "1.txt", "file")]
     [InlineData("fs", "2.txt", "some")]
@@ -110,7 +108,6 @@ public class BackendsTests
         Assert.Equal(scheme, backend.Backend.Scheme);
     }
 
-    // TODO test data directory
     [Theory]
     [InlineData("fs", new string[] { "1.txt", "2.txt" }, new string[] { "8C7DD922AD47494FC02C388E12C00EAC", "03D59E663C1AF9AC33A9949D1193505A" })]
     public async Task ListReturnsCorrectValues(string scheme, string[] names, string[] hashes)
