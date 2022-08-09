@@ -6,10 +6,9 @@ namespace archie.Backends;
 
 public class FsBackend : IBackend
 {
-    const string _scheme = "fs";
-
     private ILogger<FsBackend> _logger;
 
+    public string Scheme => "fs";
     public FsBackend(ILogger<FsBackend> logger)
     {
         _logger = logger;
@@ -85,7 +84,7 @@ public class FsBackend : IBackend
 
     private void CheckScheme(Uri uri)
     {
-        if (uri.Scheme != _scheme)
+        if (uri.Scheme != Scheme)
         {
             throw new NotSupportedException($"Scheme {uri.Scheme} not supported by FsBackend Param={uri}");
         }
@@ -95,7 +94,7 @@ public class FsBackend : IBackend
     {
         _logger.LogTrace($"ComputePath {basePath} {string.Join(",", fragments)}");
         var path = Path.Combine(basePath.AbsolutePath, string.Join(Path.DirectorySeparatorChar, fragments));
-        return new Uri($"{_scheme}://{path}");
+        return new Uri($"{Scheme}://{path}");
     }
 
     public string[] GetRelativeFragments(Uri basePath, Uri fullName)

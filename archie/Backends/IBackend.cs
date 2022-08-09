@@ -3,6 +3,9 @@ using archie.Models;
 namespace archie.Backends;
 
 public interface IBackend {
+
+    public string Scheme {get;}
+
     public Task<IEnumerable<FileDescription>> List(Uri path);
     public Task<FileDescription> GetFileDescription(Uri path);
 
