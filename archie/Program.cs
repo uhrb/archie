@@ -8,7 +8,7 @@ using Serilog;
 
 namespace archie;
 
-public static class Program
+public class Program
 {
     public static async Task<int> Main(string[] args)
     {
@@ -32,27 +32,12 @@ public static class Program
             })
             .AddSingleton<IBackendFactory, BackendFactory>()
             .AddSingleton<IObjectFormatter, JsonObjectFormatter>()
+            .AddSingleton<ICommandFactory, ConsoleCommandFactory>()
             .AddSingleton<IStreams>(_ => new Streams(Console.In, Console.Out, Console.Error))
             .BuildServiceProvider();
 
-        var rootCommand = new RootCommand();
-
-        RegisterCommands(services, rootCommand);
-        return await rootCommand.InvokeAsync(args);
-    }
-
-    public static void RegisterCommands(IServiceProvider provider, RootCommand root)
-    {
-        var iface = typeof(ICommand);
-        var instances = typeof(Program)
-            .Assembly
-            .GetTypes()
-            .Where(_ => _.IsClass && !_.IsAbstract && iface.IsAssignableFrom(_))
-            .Select(_ => ActivatorUtilities.CreateInstance(provider, _))
-            .Cast<ICommand>();
-        foreach (var instance in instances)
-        {
-            instance.Register(root);
-        }
+        var factory = services.GetRequiredService<ICommandFactory>();
+        await factory.Initialize(typeof(Program).Assembly.GetTypes());
+        return await factory.Run(args);
     }
 }

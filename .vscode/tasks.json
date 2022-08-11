@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/archie.csproj",
+                "${workspaceFolder}/archie/archie.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/archie.csproj",
+                "${workspaceFolder}/archie/archie.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/archie.csproj"
+                "${workspaceFolder}/archie/archie.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

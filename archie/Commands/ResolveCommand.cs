@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace archie.Commands;
 
-public class ResolveCommand : ICommand
+public class ResolveCommand 
 {
     private readonly ILogger<ResolveCommand> _logger;
     private readonly IObjectFormatter _fmt;
@@ -22,26 +22,6 @@ public class ResolveCommand : ICommand
     }
     public void Register(RootCommand command)
     {
-        var cmd = new Command("resolve", "Resolve conflicts and prepare");
-        var patchOption = new Option<Uri>("--patch", "Patch file stream")
-        {
-            IsRequired = true
-        };
-        var outOption = new Option<Uri>("--output", "Output for patch");
-        var s_oos = new Option<OperationType>("--strategy-oos", () => OperationType.Unknown, "Only on source resolution strategy");
-        var s_oot = new Option<OperationType>("--strategy-oot", () => OperationType.Unknown, "Only on source resolution strategy");
-        var s_both = new Option<OperationType>("--strategy-both", () => OperationType.Unknown, "Conflict resolution strategy");
-        cmd.AddOption(patchOption);
-        cmd.AddOption(outOption);
-
-        cmd.AddOption(s_oos);
-        cmd.AddOption(s_oot);
-        cmd.AddOption(s_both);
-
-        cmd.SetHandler((Uri patch, Uri? output, OperationType s_oos, OperationType s_oot, OperationType s_both)
-                => HandleResolve(patch, output, s_oos, s_oot, s_both), patchOption, outOption, s_oos, s_oot, s_both);
-        command.AddCommand(cmd);
-        _logger.LogDebug("Command registered");
     }
 
     private async Task<int> HandleResolve(Uri patch, Uri? output, OperationType s_oos, OperationType s_oot, OperationType s_both)
@@ -203,6 +183,31 @@ public class ResolveCommand : ICommand
 
             return op;
         });
+    }
+
+    public Command GetConsoleCommand()
+    {
+
+        var cmd = new Command("resolve", "Resolve conflicts and prepare");
+        var patchOption = new Option<Uri>("--patch", "Patch file stream")
+        {
+            IsRequired = true
+        };
+        var outOption = new Option<Uri>("--output", "Output for patch");
+        var s_oos = new Option<OperationType>("--strategy-oos", () => OperationType.Unknown, "Only on source resolution strategy");
+        var s_oot = new Option<OperationType>("--strategy-oot", () => OperationType.Unknown, "Only on source resolution strategy");
+        var s_both = new Option<OperationType>("--strategy-both", () => OperationType.Unknown, "Conflict resolution strategy");
+        cmd.AddOption(patchOption);
+        cmd.AddOption(outOption);
+
+        cmd.AddOption(s_oos);
+        cmd.AddOption(s_oot);
+        cmd.AddOption(s_both);
+
+        cmd.SetHandler((Uri patch, Uri? output, OperationType s_oos, OperationType s_oot, OperationType s_both)
+                => HandleResolve(patch, output, s_oos, s_oot, s_both), patchOption, outOption, s_oos, s_oot, s_both);
+        _logger.LogDebug("Command registered");
+        return cmd;
     }
 
     /*

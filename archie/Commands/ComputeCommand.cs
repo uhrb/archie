@@ -1,4 +1,3 @@
-using System.CommandLine;
 using archie.Backends;
 using archie.io;
 using archie.Models;
@@ -6,12 +5,12 @@ using Microsoft.Extensions.Logging;
 
 namespace archie.Commands;
 
-public class ComputeCommand : ICommand
+[Command(Name = "diff", Description = "Compute difference on source and target")]
+public class ComputeCommand
 {
     private readonly ILogger<ComputeCommand> _logger;
     private readonly IBackendFactory _backends;
     private readonly IObjectFormatter _fmt;
-
     private readonly IStreams _wr;
 
     public ComputeCommand(ILogger<ComputeCommand> logger, IBackendFactory backends, IObjectFormatter fmt, IStreams stream)
@@ -22,30 +21,23 @@ public class ComputeCommand : ICommand
         _wr = stream;
     }
 
-    public void Register(RootCommand rootCommand)
-    {
-        var computeCommand = new Command("diff", "Compute difference between fs points");
-        var optionSource = new Option<Uri>("--source", "Source directory")
-        {
-            IsRequired = true
-        };
-        var optionTarget = new Option<Uri>("--target", "Target directory")
-        {
-            IsRequired = true
-        };
 
-        var optionOutput = new Option<Uri>("--output", "Output file");
-        computeCommand.AddOption(optionOutput);
-        computeCommand.AddOption(optionSource);
-        computeCommand.AddOption(optionTarget);
-        computeCommand.SetHandler(
-            (Uri source, Uri target, Uri? output) => HandleCompute(source, target, output),
-            optionSource, optionTarget, optionOutput);
-        rootCommand.AddCommand(computeCommand);
-        _logger.LogDebug("Command Registered");
-    }
-
-    private async Task<int> HandleCompute(Uri source, Uri target, Uri? output)
+    [Handler]
+    private async Task<int> HandleCompute(
+        [Option<Uri>(
+            Aliases = new string[] { "--source", "-s"},
+            IsRequired = true,
+            Description = "Source directory"
+        )]Uri source, 
+        [Option<Uri>(
+            Aliases = new string[] { "--target", "-t"},
+            IsRequired = true,
+            Description = "Target directory"
+        )]Uri target, 
+        [Option<Uri>(
+            Aliases = new string[] { "--output", "-o" },
+            Description = "Output file"
+        )]Uri? output)
     {
         using (var scope = _logger.BeginScope($"{Guid.NewGuid()} HandleCompute"))
         {
@@ -153,4 +145,36 @@ public class ComputeCommand : ICommand
             yield return firstDict[key];
         }
     }
+
+/*
+    public Command GetConsoleCommand()
+    {
+        var computeCommand = new Command("diff", "Compute difference between fs points");
+
+        computeCommand.SetHandler())
+            (Uri source, Uri target, Uri? output) => HandleCompute(source, target, output),
+            optionSource, optionTarget, optionOutput);
+        _logger.LogDebug("Command Registered");
+
+        return computeCommand;
+    }
+    */
+
+    public string Name
+    {
+        get
+        {
+            return "diff";
+        }
+    }
+
+    public string Description
+    {
+        get
+        {
+            return "Compute difference between source and target";
+        }
+    }
+
+    public string HandleMethodName => nameof(HandleCompute);
 }
