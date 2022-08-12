@@ -12,9 +12,14 @@ namespace units;
 
 public sealed class VirtualBackend : IBackend
 {
-    public string Scheme { get; set; } = "vfs";
+    public string Scheme { get; private set; }
 
     public List<FileDescription> FilesToList { get; set; }
+
+    public VirtualBackend(string scheme)
+    {
+        Scheme = scheme;
+    }
 
     public Uri GenerateRandomUri()
     {

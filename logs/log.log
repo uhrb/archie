@@ -1,79 +1,80 @@
-2022-08-11T17:34:03.782+04:00 [Debug]  Command registered (Name=diff; Description=Compute difference on source and target) 
-2022-08-11T17:34:03.807+04:00 [Debug]  Starting execution 
-2022-08-11T17:34:03.890+04:00 [Debug] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] Source=fs:///home/uh/Data/archie/source, Target=fs:///home/uh/Data/archie/target 
-2022-08-11T17:34:03.893+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetBySchema fs 
-2022-08-11T17:34:03.894+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetBySchema fs 
-2022-08-11T17:34:03.896+04:00 [Debug] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] List fs:///home/uh/Data/archie/source /home/uh/Data/archie/source 
-2022-08-11T17:34:03.921+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
-2022-08-11T17:34:03.921+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
-2022-08-11T17:34:03.922+04:00 [Debug] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] List fs:///home/uh/Data/archie/target /home/uh/Data/archie/target 
-2022-08-11T17:34:03.923+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
-2022-08-11T17:34:03.923+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
-2022-08-11T17:34:03.924+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
-2022-08-11T17:34:03.924+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
-2022-08-11T17:34:03.924+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
-2022-08-11T17:34:03.924+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
-2022-08-11T17:34:03.924+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
-2022-08-11T17:34:03.924+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
-2022-08-11T17:34:03.925+04:00 [Debug] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] SourceCount=2; TargetCount=3 
-2022-08-11T17:34:03.927+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
-2022-08-11T17:34:03.927+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
-2022-08-11T17:34:03.927+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
-2022-08-11T17:34:03.928+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
-2022-08-11T17:34:03.928+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
-2022-08-11T17:34:03.928+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
-2022-08-11T17:34:03.928+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
-2022-08-11T17:34:03.928+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
-2022-08-11T17:34:03.929+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
-2022-08-11T17:34:03.929+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
-2022-08-11T17:34:03.930+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
-2022-08-11T17:34:03.930+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
-2022-08-11T17:34:03.930+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
-2022-08-11T17:34:03.930+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
-2022-08-11T17:34:03.930+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
-2022-08-11T17:34:03.930+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
-2022-08-11T17:34:03.930+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
-2022-08-11T17:34:03.930+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
-2022-08-11T17:34:03.930+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
-2022-08-11T17:34:03.930+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
-2022-08-11T17:34:03.931+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
-2022-08-11T17:34:03.931+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
-2022-08-11T17:34:03.932+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
-2022-08-11T17:34:03.932+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
-2022-08-11T17:34:03.932+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
-2022-08-11T17:34:03.932+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
-2022-08-11T17:34:03.932+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
-2022-08-11T17:34:03.932+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
-2022-08-11T17:34:03.932+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
-2022-08-11T17:34:03.932+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
-2022-08-11T17:34:03.933+04:00 [Debug] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] OnlyOnTarget=1; OnlyOnSource=0; Intersect=1 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
-2022-08-11T17:34:03.934+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
-2022-08-11T17:34:03.935+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
-2022-08-11T17:34:03.935+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
-2022-08-11T17:34:03.935+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
-2022-08-11T17:34:03.935+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
-2022-08-11T17:34:03.935+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
-2022-08-11T17:34:03.935+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
-2022-08-11T17:34:03.935+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
-2022-08-11T17:34:03.935+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
-2022-08-11T17:34:03.935+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
-2022-08-11T17:34:03.935+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
-2022-08-11T17:34:03.936+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
-2022-08-11T17:34:03.936+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
-2022-08-11T17:34:03.936+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
-2022-08-11T17:34:03.936+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
-2022-08-11T17:34:03.936+04:00 [Verbose] ["4e467791-1b1c-4a5f-9458-3a03e33c0c8d HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
+2022-08-12T15:16:22.267+04:00 [Debug]  Command registered (Name=diff; Description=Compute difference on source and target) 
+2022-08-12T15:16:22.286+04:00 [Debug]  Starting execution 
+2022-08-12T15:16:22.432+04:00 [Debug] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] Source=fs:///home/uh/Data/archie/source, Target=fs:///home/uh/Data/archie/target 
+2022-08-12T15:16:22.435+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetBySchema fs 
+2022-08-12T15:16:22.435+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetBySchema fs 
+2022-08-12T15:16:22.438+04:00 [Debug] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] List fs:///home/uh/Data/archie/source /home/uh/Data/archie/source 
+2022-08-12T15:16:22.477+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-12T15:16:22.478+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-12T15:16:27.097+04:00 [Debug] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] List fs:///home/uh/Data/archie/target /home/uh/Data/archie/target 
+2022-08-12T15:16:27.126+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-12T15:16:27.131+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-12T15:16:27.133+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-12T15:16:27.134+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-12T15:16:27.134+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-12T15:16:27.156+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-12T15:16:27.156+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-12T15:16:27.157+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-12T15:16:27.157+04:00 [Debug] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] SourceCount=2; TargetCount=3 
+2022-08-12T15:16:27.179+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-12T15:16:27.180+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
+2022-08-12T15:16:27.181+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-12T15:16:27.181+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
+2022-08-12T15:16:27.182+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-12T15:16:27.182+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
+2022-08-12T15:16:27.182+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-12T15:16:27.183+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
+2022-08-12T15:16:27.183+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-12T15:16:27.183+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
+2022-08-12T15:16:27.184+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-12T15:16:27.184+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
+2022-08-12T15:16:27.185+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-12T15:16:27.185+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
+2022-08-12T15:16:27.185+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-12T15:16:27.185+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
+2022-08-12T15:16:27.186+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-12T15:16:27.186+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
+2022-08-12T15:16:27.186+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-12T15:16:27.186+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
+2022-08-12T15:16:27.187+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-12T15:16:27.208+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
+2022-08-12T15:16:27.209+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-12T15:16:27.209+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
+2022-08-12T15:16:27.209+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-12T15:16:27.209+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
+2022-08-12T15:16:27.210+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-12T15:16:27.210+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
+2022-08-12T15:16:27.210+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-12T15:16:27.210+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
+2022-08-12T15:16:27.211+04:00 [Debug] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] OnlyOnTarget=1; OnlyOnSource=0; Intersect=1 
+2022-08-12T15:16:27.212+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-12T15:16:27.252+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
+2022-08-12T15:16:27.253+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-12T15:16:27.253+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
+2022-08-12T15:16:27.254+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-12T15:16:27.254+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
+2022-08-12T15:16:27.254+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-12T15:16:27.275+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
+2022-08-12T15:16:27.275+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-12T15:16:27.296+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
+2022-08-12T15:16:27.296+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-12T15:16:27.296+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
+2022-08-12T15:16:27.297+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-12T15:16:27.317+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
+2022-08-12T15:16:27.318+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-12T15:16:27.318+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
+2022-08-12T15:16:27.318+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-12T15:16:27.318+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
+2022-08-12T15:16:27.319+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-12T15:16:27.319+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
+2022-08-12T15:16:27.320+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/1.txt 
+2022-08-12T15:16:27.361+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/1.txt 1.txt 
+2022-08-12T15:16:27.361+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/source/2.txt 
+2022-08-12T15:16:27.361+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/source fs:///home/uh/Data/archie/source/2.txt 2.txt 
+2022-08-12T15:16:27.361+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/3.txt 
+2022-08-12T15:16:27.383+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/3.txt 3.txt 
+2022-08-12T15:16:27.384+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] A2E5E988620BBE17EF14DFD37E4D86CA - /home/uh/Data/archie/target/1.txt 
+2022-08-12T15:16:27.384+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/1.txt 1.txt 
+2022-08-12T15:16:27.385+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] D41D8CD98F00B204E9800998ECF8427E - /home/uh/Data/archie/target/2.txt 
+2022-08-12T15:16:27.406+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetRelativeFragments fs:///home/uh/Data/archie/target fs:///home/uh/Data/archie/target/2.txt 2.txt 
+2022-08-12T15:16:27.608+04:00 [Verbose] ["8877962a-c677-4fc5-a766-6ba62fefb0bd HandleCompute"] GetBySchema fs 

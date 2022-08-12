@@ -1,0 +1,193 @@
+﻿<html xmlns:tp="http://schemas.datacontract.org/2004/07/Microsoft.VisualStudio.TestPlatform.Extensions.HtmlLogger.ObjectModel" xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+  <body>
+    <h1>Test run details</h1>
+    <div class="summary">
+      <div class="block"><span>Total tests</span><div class="total-tests">19</div><br></div>
+      <div class="block"><span>Passed  : </span><span class="passedTests">18</span><br><span>Failed  : </span><span class="failedTests">1</span><br><span>Skipped : </span><span class="skippedTests">0</span><br></div>
+      <div class="block"><span>Pass percentage</span><div class="pass-percentage">94 %</div><br></div>
+      <div class="block"><span>Run duration</span><div class="test-run-time">1s 218ms</div><br></div><br></div>
+    <h2>Failed Results</h2>
+    <div class="list-row" onclick="ToggleClass('1593810878-failedResult')">/home/uh/github/archie/units/bin/Debug/net6.0/units.dll</div>
+    <div class="inner-row" Id="1593810878-failedResult" style="display:block;">
+      <div class="leaf-division">
+        <div><span class="fail">✘</span><span> archie.Commands.ComputeCommandTests.HandleComputeWorksAsExpected(firstScheme: "vfs", secondScheme: "dbfs")</span><div class="duration"><span>36ms</span><br></div>
+        </div>
+        <div class="error-info">
+    Error: <span class="error-message"><pre>Assert.Equal() Failure
+Expected: 0
+Actual:   100</pre></span><br>
+    Stack trace: <span class="error-stack-trace"><pre>   at archie.Commands.ComputeCommandTests.HandleComputeWorksAsExpected(String firstScheme, String secondScheme) in /home/uh/github/archie/units/Commands/ComputeCommandTests.cs:line 50
+--- End of stack trace from previous location ---</pre></span><br></div>
+      </div>
+    </div>
+    <h2>All Results</h2>
+    <div class="list-row" onclick="ToggleClass('1593810878')">/home/uh/github/archie/units/bin/Debug/net6.0/units.dll</div>
+    <div class="inner-row" Id="1593810878" style="display:none;">
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendFactoryTests.GetByShemeThrowsIfGarbageSupplied</span><div class="duration"><span>72ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendsTests.ListReturnsCorrectValues(scheme: "fs", names: ["1.txt", "2.txt"], hashes: ["8C7DD922AD47494FC02C388E12C00EAC", "03D59E663C1AF9AC33A9949D1193505A"])</span><div class="duration"><span>83ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> archie.Commands.ComputeCommandTests.GetBothListReturnsCorrectList(firstScheme: "vfs", secondScheme: "dbfs", firstNames: ["1.txt", "2.txt", "3.txt"], firstHashes: ["a", "b", "c"], secondNames: ["1.txt", "2.txt", "3.txt"], secondHashes: ["a", "b", "d"], expectedBoth: ["3.txt"])</span><div class="duration"><span>84ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendsTests.SchemeIsCorrect(scheme: "fs")</span><div class="duration"><span>&lt; 1ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> archie.Commands.ComputeCommandTests.GetBothListReturnsCorrectList(firstScheme: "vfs", secondScheme: "dbfs", firstNames: ["1.txt", "2.txt", "3.txt"], firstHashes: ["a", "b", "c"], secondNames: ["2.txt", "3.txt"], secondHashes: ["e", "d"], expectedBoth: ["2.txt", "3.txt"])</span><div class="duration"><span>&lt; 1ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendsTests.OpenWriteFailsIfOpenedNonExistingFile(scheme: "fs", nonExistingFile: "fs:///some/non/existing/file.txt")</span><div class="duration"><span>3ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> archie.Commands.ComputeCommandTests.GetOnlyInFirstListReturnsCorrectList(firstScheme: "vfs", secondScheme: "dbfs", firstNames: ["1.txt", "2.txt"], secondNames: ["1.txt", "2.txt"], expected: [])</span><div class="duration"><span>3ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> archie.Commands.ComputeCommandTests.GetOnlyInFirstListReturnsCorrectList(firstScheme: "vfs", secondScheme: "dbfs", firstNames: ["1.txt"], secondNames: ["1.txt", "2.txt", "3.txt"], expected: [])</span><div class="duration"><span>&lt; 1ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> archie.Commands.ComputeCommandTests.GetOnlyInFirstListReturnsCorrectList(firstScheme: "vfs", secondScheme: "dbfs", firstNames: ["1.txt", "2.txt", "3.txt"], secondNames: ["2.txt", "3.txt"], expected: ["1.txt"])</span><div class="duration"><span>&lt; 1ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> archie.Commands.ComputeCommandTests.ComputeCommandCreatesSuccess</span><div class="duration"><span>&lt; 1ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendsTests.GetFileDescriptionReturnsCorrectFileDescription(scheme: "fs", fileName: "1.txt", hash: "8C7DD922AD47494FC02C388E12C00EAC")</span><div class="duration"><span>3ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendFactoryTests.GetByShemeReturnsProperImplementationForRegistered(scheme: "fs")</span><div class="duration"><span>23ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendsTests.OpenReadReturnsCorrectStream(scheme: "fs", fileName: "1.txt", content: "file")</span><div class="duration"><span>5ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendsTests.OpenReadReturnsCorrectStream(scheme: "fs", fileName: "2.txt", content: "some")</span><div class="duration"><span>&lt; 1ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendsTests.GetFileDescriptionThrowsForNonExistingFile(scheme: "fs", nonExistingFile: "fs:///some/non/existing/file.txt")</span><div class="duration"><span>2ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendsTests.ComputePathReturnsCorrectResult(scheme: "fs", basePath: "fs:///home", fragments: ["some", "dir"], expected: "fs:///home/some/dir")</span><div class="duration"><span>&lt; 1ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendsTests.OpenReadThrowsIfSchemeIsNotValid(scheme: "fs", nonValidPath: "virtualEnv://example.com")</span><div class="duration"><span>&lt; 1ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="pass">✔</span><span> units.BackendsTests.GetRelativeFragmentsReturnsCorrectValues(scheme: "fs", basePath: "fs:///home/foo", fullPath: "fs:///home/foo/bar", fragments: ["bar"])</span><div class="duration"><span>&lt; 1ms</span><br></div>
+        </div>
+        <div class="error-info"></div>
+      </div>
+      <div class="leaf-division">
+        <div><span class="fail">✘</span><span> archie.Commands.ComputeCommandTests.HandleComputeWorksAsExpected(firstScheme: "vfs", secondScheme: "dbfs")</span><div class="duration"><span>36ms</span><br></div>
+        </div>
+        <div class="error-info">
+    Error: <span class="error-message"><pre>Assert.Equal() Failure
+Expected: 0
+Actual:   100</pre></span><br>
+    Stack trace: <span class="error-stack-trace"><pre>   at archie.Commands.ComputeCommandTests.HandleComputeWorksAsExpected(String firstScheme, String secondScheme) in /home/uh/github/archie/units/Commands/ComputeCommandTests.cs:line 50
+--- End of stack trace from previous location ---</pre></span><br></div>
+      </div>
+    </div>
+    <div>
+      <h2>Informational messages</h2><span>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.3+1b45f5407b (64-bit .NET 6.0.8)</span><br><span>[xUnit.net 00:00:00.42]   Discovering: units</span><br><span>[xUnit.net 00:00:00.48]   Discovered:  units</span><br><span>[xUnit.net 00:00:00.48]   Starting:    units</span><br><span>[xUnit.net 00:00:00.68]       Assert.Equal() Failure</span><br><span>[xUnit.net 00:00:00.68]       Expected: 0</span><br><span>[xUnit.net 00:00:00.68]       Actual:   100</span><br><span>[xUnit.net 00:00:00.68]       Stack Trace:</span><br><span>[xUnit.net 00:00:00.68]         /home/uh/github/archie/units/Commands/ComputeCommandTests.cs(50,0): at archie.Commands.ComputeCommandTests.HandleComputeWorksAsExpected(String firstScheme, String secondScheme)</span><br><span>[xUnit.net 00:00:00.68]         --- End of stack trace from previous location ---</span><br><span>[xUnit.net 00:00:00.68]       Output:</span><br><span>[xUnit.net 00:00:00.68]         VirtualLogger ComputeCommand 14140769-9ac3-475d-a7ee-008472a1e016 HandleCompute</span><br><span>[xUnit.net 00:00:00.68]         </span><br><span>[xUnit.net 00:00:00.68]         VirtualLogger ComputeCommand Debug 0 Source=vfs://df8ecbc1-ff12-4f05-a158-ca636ea8d395/, Target=dbfs://259dd05f-17da-43e6-8bd5-b81c7279d83d/  Source=vfs://df8ecbc1-ff12-4f05-a158-ca636ea8d395/, Target=dbfs://259dd05f-17da-43e6-8bd5-b81c7279d83d/</span><br><span>[xUnit.net 00:00:00.68]         </span><br><span>[xUnit.net 00:00:00.68]         VirtualLogger ComputeCommand Error 0 Value cannot be null. (Parameter 'source') System.ArgumentNullException: Value cannot be null. (Parameter 'source')</span><br><span>[xUnit.net 00:00:00.68]            at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)</span><br><span>[xUnit.net 00:00:00.68]            at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)</span><br><span>[xUnit.net 00:00:00.68]            at archie.Commands.ComputeCommand.HandleCompute(Uri source, Uri target, Uri output) in /home/uh/github/archie/archie/Commands/ComputeCommand.cs:line 51 Value cannot be null. (Parameter 'source')</span><br><span>[xUnit.net 00:00:00.68]         </span><br><span>[xUnit.net 00:00:00.69]   Finished:    units</span><br></div>
+    <div>
+      <h2>Error and Warning messages</h2><span>[xUnit.net 00:00:00.68]     archie.Commands.ComputeCommandTests.HandleComputeWorksAsExpected(firstScheme: "vfs", secondScheme: "dbfs") [FAIL]</span><br></div>
+  </body><script language="javascript">
+        function ToggleClass(id) {
+        var elem = document.getElementById(id);
+        if (elem.style.display == "none") {
+        elem.style.display = "block";
+        }
+        else {
+        elem.style.display = "none";
+        }
+        }
+      </script><style>
+        body { font-family: Calibri, Verdana, Arial, sans-serif; background-color: White; color: Black; }
+        h2 {
+        margin-top: 15px;
+        margin-bottom:10px;
+        }
+        pre {
+        white-space: pre-wrap;
+        }
+        .summary {font-family:monospace;
+        display: -webkit-flex; /* Safari */
+        -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+        display: flex;
+        flex-wrap: wrap;
+        }
+        .row {
+        border: 2px solid #ffffff;
+        width:100%;
+        cursor:pointer;
+        background-color:#d7e9fa;
+        }
+        .list-row {
+        border: 2px solid #ffffff;
+        width:100%;
+        cursor:pointer;
+        background-color:#ffffff;
+        }
+        .inner-row{
+        border: 2px solid #ffffff;
+        padding-left:1%;
+        margin-left:1%;
+        background-color:#ffffff;
+        }
+        .block{
+        width : 150px;
+        }
+        .leaf-division{
+        border: 2px solid #ffffff;
+        background-color:#e6eff7;
+        }
+        .pass { color: #0c0; }
+        .fail { color: #c00; }
+        .error-message { color : brown; }
+        .error-stack-trace { color: brown; }
+        .duration {float:right;padding-right:1%;}
+        .total-tests { font-size : 30px}
+        .test-run-time { font-size : 30px}
+        .pass-percentage { font-size : 30px}
+        .error-info{
+        margin-left:16px;
+        }
+      </style>
+</html>
