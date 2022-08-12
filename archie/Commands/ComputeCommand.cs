@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 namespace archie.Commands;
 
 [Command(Name = "diff", Description = "Compute difference on source and target")]
-public class ComputeCommand
+public sealed class ComputeCommand
 {
     private readonly ILogger<ComputeCommand> _logger;
     private readonly IBackendFactory _backends;
@@ -23,7 +23,7 @@ public class ComputeCommand
 
 
     [Handler]
-    private async Task<int> HandleCompute(
+    public async Task<int> HandleCompute(
         [Option<Uri>(
             Aliases = new string[] { "--source", "-s"},
             IsRequired = true,
@@ -96,13 +96,13 @@ public class ComputeCommand
         }
     }
 
-    private class TupleOps
+    public class TupleOps
     {
         public FileDescription First { get; set; }
         public FileDescription Second { get; set; }
     }
 
-    private IEnumerable<TupleOps> GetOnBothLists(
+    public IEnumerable<TupleOps> GetOnBothLists(
         IEnumerable<FileDescription> first,
         IEnumerable<FileDescription> second,
         IBackend firstB,
@@ -110,7 +110,6 @@ public class ComputeCommand
         IBackend secondB,
         Uri secondBase)
     {
-
         var firstDict = first.ToDictionary(_ => string.Join("/", firstB.GetRelativeFragments(firstBase, _.FullName)));
         var secondDict = second.ToDictionary(_ => string.Join("/", secondB.GetRelativeFragments(secondBase, _.FullName)));
         var both = firstDict.Keys.Intersect(secondDict.Keys);
@@ -129,7 +128,7 @@ public class ComputeCommand
         }
     }
 
-    private IEnumerable<FileDescription> GetOnlyInFirstList(
+    public IEnumerable<FileDescription> GetOnlyInFirstList(
         IEnumerable<FileDescription> first,
         IEnumerable<FileDescription> second,
         IBackend firstB,
@@ -145,36 +144,4 @@ public class ComputeCommand
             yield return firstDict[key];
         }
     }
-
-/*
-    public Command GetConsoleCommand()
-    {
-        var computeCommand = new Command("diff", "Compute difference between fs points");
-
-        computeCommand.SetHandler())
-            (Uri source, Uri target, Uri? output) => HandleCompute(source, target, output),
-            optionSource, optionTarget, optionOutput);
-        _logger.LogDebug("Command Registered");
-
-        return computeCommand;
-    }
-    */
-
-    public string Name
-    {
-        get
-        {
-            return "diff";
-        }
-    }
-
-    public string Description
-    {
-        get
-        {
-            return "Compute difference between source and target";
-        }
-    }
-
-    public string HandleMethodName => nameof(HandleCompute);
 }

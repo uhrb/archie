@@ -129,19 +129,6 @@ public class BackendsTests
         Assert.Equal(combined, items, new FileDescriptionEqualityComparer());
     }
 
-    private class FileDescriptionEqualityComparer : IEqualityComparer<FileDescription>
-    {
-        public bool Equals(FileDescription? x, FileDescription? y)
-        {
-            return (x!.FullName == y!.FullName) && (x!.MD5 == y!.MD5);
-        }
-
-        public int GetHashCode([DisallowNull] FileDescription obj)
-        {
-            return obj.GetHashCode();
-        }
-    }
-
     private class BackendConfig
     {
         public IBackend Backend { get; set; }

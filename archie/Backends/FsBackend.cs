@@ -83,6 +83,7 @@ public class FsBackend : IBackend
 
     public Uri ComputePath(Uri basePath, string[] fragments)
     {
+        CheckScheme(basePath);
         _logger.LogTrace($"ComputePath {basePath} {string.Join(",", fragments)}");
         var path = Path.Combine(basePath.AbsolutePath, string.Join(Path.DirectorySeparatorChar, fragments));
         return new Uri($"{Scheme}://{path}");
