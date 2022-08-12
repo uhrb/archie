@@ -35,10 +35,16 @@ public class ComputeCommandTests
         "dbfs",
         "output",
         "result.json",
-        new string[] { "1.txt", "2.txt", "3.txt" },
-        new string[] { "a", "b", "c" },
-        new string[] { "1.txt", "2.txt" },
-        new string[] { "a", "d" })]
+        new [] { "1.txt", "2.txt", "3.txt" }, // firstNames
+        new [] { "a", "b", "c" }, // firstHashes
+        new [] { "1.txt", "2.txt", "4.txt" }, // secondNames
+        new [] { "a", "d", "e" }, // secondHashes
+        new [] { "3.txt" }, //onlyOnSourceNames
+        new [] { "c" }, //onlyOnSourceHashes
+        new [] { "4.txt" }, //onlyOnTargetNames
+        new [] { "e" }, //onlyOnTargetHashes
+        new [] { "2.txt" } // bothNames with different hashes
+    )]
     public async Task HandleComputeWorksAsExpected(
         string firstScheme,
         string secondScheme,
@@ -47,7 +53,12 @@ public class ComputeCommandTests
         string[] firstNames,
         string[] firstHashes,
         string[] secondNames,
-        string[] secondHashes)
+        string[] secondHashes,
+        string[] onlyOnSourceNames,
+        string[] onlyOnSourceHashes,
+        string[] onlyOnTargetNames,
+        string[] onlyOnTargetHashes,
+        string[] bothNames)
     {
         var bfMoq = new Mock<IBackendFactory>();
         var objFormatterMoq = new Mock<IObjectFormatter>();
@@ -75,10 +86,38 @@ public class ComputeCommandTests
         Assert.True(outputBackend.OpenedStreams.Count == 1);
         Assert.True(outputBackend.OpenedStreams.ContainsKey(outputEntryPath));
         var outputEntryStream = outputBackend.OpenedStreams[outputEntryPath];
-        var bytes = outputEntryStream.ToArray(); 
+        var bytes = outputEntryStream.ToArray();
         var computeResult = Encoding.Default.GetString(bytes);
         Assert.NotNull(computeResult);
         var diff = JsonConvert.DeserializeObject<DiffDescription>(computeResult);
+        Assert.NotNull(diff);
+        Assert.Equal(firstRoot, diff!.Source);
+        Assert.Equal(secondRoot, diff!.Target);
+        Assert.Equal(onlyOnSourceNames.Length, diff!.OnlyOnSource.Count);
+        Assert.Equal(onlyOnTargetNames.Length, diff!.OnlyOnTarget.Count);
+        Assert.Equal(bothNames.Length, diff!.Both.Count);
+        foreach (var item in diff.OnlyOnSource)
+        {
+            Assert.Equal(firstScheme, item.FullName.Scheme);
+        }
+        var expectedOnlyOnSource = firstBackend.FromPairList(firstRoot, onlyOnSourceNames, onlyOnSourceHashes);
+        Assert.Equal(expectedOnlyOnSource, diff.OnlyOnSource, new FileDescriptionEqualityComparer());
+        foreach (var item in diff.OnlyOnTarget)
+        {
+            Assert.Equal(secondScheme, item.FullName.Scheme);
+        }
+        var expectedOnlyOnTarget = secondBackend.FromPairList(secondRoot, onlyOnTargetNames, onlyOnTargetHashes);
+        Assert.Equal(expectedOnlyOnTarget, diff.OnlyOnTarget, new FileDescriptionEqualityComparer());
+
+        foreach (var item in diff.Both)
+        {
+            Assert.Equal(firstScheme, item.Source.FullName.Scheme);
+            Assert.Equal(secondScheme, item.Target.FullName.Scheme);
+            Assert.NotEqual(item.Source.MD5, item.Target.MD5);
+            var relativeFirst = firstBackend.GetRelativeFragments(firstRoot, item.Source.FullName);
+            var relativeSecond = secondBackend.GetRelativeFragments(secondRoot, item.Target.FullName);
+            Assert.Equal(relativeFirst, relativeSecond);
+        }
     }
 
     [Theory]
