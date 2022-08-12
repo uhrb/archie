@@ -14,11 +14,15 @@ public sealed class VirtualBackend : IBackend
 {
     public string Scheme { get; private set; }
 
-    public List<FileDescription> FilesToList { get; set; }
+    public List<FileDescription> FilesToList { get; private set; }
+
+    public Dictionary<Uri, MemoryStream> OpenedStreams { get; private set; }
 
     public VirtualBackend(string scheme)
     {
         Scheme = scheme;
+        FilesToList = new List<FileDescription>();
+        OpenedStreams = new Dictionary<Uri, MemoryStream>();
     }
 
     public Uri GenerateRandomUri()
@@ -71,14 +75,18 @@ public sealed class VirtualBackend : IBackend
         return Task.FromResult((IEnumerable<FileDescription>)FilesToList);
     }
 
-    public Task<Stream> OpenRead(Uri entry)
+    public Task<Stream> OpenRead(Uri uri)
     {
-        return Task.FromResult((Stream)new MemoryStream());
+        var stream = new MemoryStream();
+        OpenedStreams.Add(uri, stream);
+        return Task.FromResult((Stream)stream);
     }
 
     public Task<Stream> OpenWrite(Uri uri, FileMode mode)
     {
-        return Task.FromResult((Stream)new MemoryStream());
+        var stream = new MemoryStream();
+        OpenedStreams.Add(uri, stream);
+        return Task.FromResult((Stream)stream);
     }
 
     public void CheckScheme(Uri input)

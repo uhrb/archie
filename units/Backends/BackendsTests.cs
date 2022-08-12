@@ -12,6 +12,8 @@ using Xunit;
 
 namespace units;
 
+
+[Collection("BackendsTests")]
 public class BackendsTests
 {
 

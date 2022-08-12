@@ -6,6 +6,7 @@ using Xunit;
 
 namespace units;
 
+[Collection("BackendFactoryTests")]
 public class BackendFactoryTests
 {
     [Fact]

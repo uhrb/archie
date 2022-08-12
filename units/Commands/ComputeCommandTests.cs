@@ -1,6 +1,5 @@
 using archie.Backends;
 using archie.io;
-using Microsoft.Extensions.Logging;
 using Moq;
 using units;
 using Xunit;
@@ -8,10 +7,13 @@ using System.Threading.Tasks;
 using System.Linq;
 using Newtonsoft.Json;
 using Xunit.Abstractions;
-using System;
+using archie.Models;
+using System.Text;
+using archie.Commands;
 
-namespace archie.Commands;
+namespace untis;
 
+[Collection("ComputeCommandTests")]
 public class ComputeCommandTests
 {
     private readonly ITestOutputHelper _helper;
@@ -28,8 +30,24 @@ public class ComputeCommandTests
     }
 
     [Theory]
-    [InlineData("vfs", "dbfs")]
-    public async Task HandleComputeWorksAsExpected(string firstScheme, string secondScheme)
+    [InlineData(
+        "vfs",
+        "dbfs",
+        "output",
+        "result.json",
+        new string[] { "1.txt", "2.txt", "3.txt" },
+        new string[] { "a", "b", "c" },
+        new string[] { "1.txt", "2.txt" },
+        new string[] { "a", "d" })]
+    public async Task HandleComputeWorksAsExpected(
+        string firstScheme,
+        string secondScheme,
+        string outputScheme,
+        string outputEntry,
+        string[] firstNames,
+        string[] firstHashes,
+        string[] secondNames,
+        string[] secondHashes)
     {
         var bfMoq = new Mock<IBackendFactory>();
         var objFormatterMoq = new Mock<IObjectFormatter>();
@@ -40,14 +58,27 @@ public class ComputeCommandTests
         streamsMoq.Setup(_ => _.Stdout).Returns(streamsHelper.Stdout);
         var firstBackend = new VirtualBackend(firstScheme);
         var secondBackend = new VirtualBackend(secondScheme);
-        bfMoq.Setup(_ => _.GetByScheme(It.Is<string>(__ => __ == firstScheme))).Returns(firstBackend);
-        bfMoq.Setup(_ => _.GetByScheme(It.Is<string>(__ => __ == secondScheme))).Returns(secondBackend);
+        var outputBackend = new VirtualBackend(outputScheme);
+        bfMoq.Setup(_ => _.GetByScheme(It.Is<string>(__ => __ == firstScheme))).Returns(firstBackend).Verifiable();
+        bfMoq.Setup(_ => _.GetByScheme(It.Is<string>(__ => __ == secondScheme))).Returns(secondBackend).Verifiable();
+        bfMoq.Setup(_ => _.GetByScheme(It.Is<string>(__ => __ == outputScheme))).Returns(outputBackend).Verifiable();
         var cmd = new ComputeCommand(new VirtualLogger<ComputeCommand>(streamsHelper), bfMoq.Object, objFormatterMoq.Object, streamsMoq.Object);
         var firstRoot = firstBackend.GenerateRandomUri();
         var secondRoot = secondBackend.GenerateRandomUri();
-        var result = await cmd.HandleCompute(firstRoot, secondRoot, null);
-        Assert.True(streamsHelper.VirtualStdout.OutBuffer.Count > 0);
+        var outputRoot = outputBackend.GenerateRandomUri();
+        var outputEntryPath = outputBackend.ComputePath(outputRoot, new[] { outputEntry });
+        firstBackend.FilesToList.AddRange(firstBackend.FromPairList(firstRoot, firstNames, firstHashes).ToList());
+        secondBackend.FilesToList.AddRange(secondBackend.FromPairList(secondRoot, secondNames, secondHashes).ToList());
+        var result = await cmd.HandleCompute(firstRoot, secondRoot, outputEntryPath);
         Assert.Equal(0, result);
+        bfMoq.VerifyAll();
+        Assert.True(outputBackend.OpenedStreams.Count == 1);
+        Assert.True(outputBackend.OpenedStreams.ContainsKey(outputEntryPath));
+        var outputEntryStream = outputBackend.OpenedStreams[outputEntryPath];
+        var bytes = outputEntryStream.ToArray(); 
+        var computeResult = Encoding.Default.GetString(bytes);
+        Assert.NotNull(computeResult);
+        var diff = JsonConvert.DeserializeObject<DiffDescription>(computeResult);
     }
 
     [Theory]
