@@ -1,3 +1,6 @@
 obj/
 bin/
 lcov.info
+TestResults/
+patches/
+resolved/
